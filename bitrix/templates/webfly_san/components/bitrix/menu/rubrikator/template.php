@@ -15,12 +15,13 @@ $iter = 0;//<span class="tripple-point">&nbsp;</span>
     $iter++;
     if($iter >($counts/2 + 1)) $class = "left-drop";
     else $class = "";
-    if($iter == $counts){
-      $class .= " last-child";
-      $text = '<span class="tripple-point">&nbsp;</span>';
-    }else{
-      $text = $arItem["TEXT"];
-    }
+//    if($iter == $counts){
+//      $class .= " last-child";
+//      $text = '<span class="tripple-point">&nbsp;</span>';
+//    }else{
+//      $text = $arItem["TEXT"];
+//    }
+    $text = $arItem["TEXT"]
     ?>
     <li class="<?=$class?>">
       <a href="<?=$arItem["LINK"]?>"><span><em><?=$text?></em></span></a>
