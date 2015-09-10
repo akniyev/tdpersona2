@@ -683,7 +683,7 @@ form,fieldset{
 	background:url(../img/separator-nav.png) no-repeat 0 4px;
 	float:left;
 	text-align:center;
-	width:25%;
+	width:25%;/*todo: было 11.3%*/
 }
 #nav > li:first-child{
 	background:none;
