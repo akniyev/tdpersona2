@@ -8,11 +8,12 @@ $APPLICATION->SetTitle("Интернет-магазин \"Сантехники +
 <?php
     $el = new CIBlockElement;
     //$el->Update("1043", Array("NAME" => "MYCHANGE"));
-    $res2 = $el->Add(Array(
+    $arFields = array(
         "IBLOCK_ID" => 4,
         "NAME" => "ADDED FROM PHP2",
         "CODE" => "php_product" . rand(1, 10000),
-        "IBLOCK_SECTION_ID" => 19,
+        "ACTIVE" => "Y",
+        "IBLOCK_SECTION_ID" => 17,
         "DETAIL_TEXT" => "asdf",
         "DETAIL_TEXT_TYPE" => "html",
         "PROPERTY_VALUES" => Array(
@@ -20,11 +21,34 @@ $APPLICATION->SetTitle("Интернет-магазин \"Сантехники +
             "TB_WIDTH" => 5000,
             "TB_UTEPLITEL" => 148
         )
+    );
+    if ($last_el_id = $el->Add($arFields))
+    {
+        echo 'New ID: ' . $last_el_id . '<br>';
 
-    ));
-    echo "res:<br> ";
-    var_dump($res2);
-    echo "Error: ".$el->LAST_ERROR;;
+        $arFields = array(
+            "ID" => $last_el_id,
+            "VAT_INCLUDED" => "Y"
+        );
+
+        if (CCatalogProduct::Add($arFields))
+        {
+            echo "Добавили параметры товара к элементу каталога " . $last_el_id . "<br>";
+
+            $arFields = Array(
+                "PRODUCT_ID" => $last_el_id,
+                "CATALOG_GROUP_ID" => 1,
+                "PRICE" => 12345.65,
+                "CURRENCY" => "EUR"
+            );
+
+            CPrice::Add($arFields);
+        }
+        else
+            echo "Ошибка добавления параметров товаров";
+    }
+    else
+        echo "Error: " . $el->LAST_ERROR . "<br>";
 
     $res = CIBlockElement::GetList (
         Array(),
@@ -50,5 +74,6 @@ $APPLICATION->SetTitle("Интернет-магазин \"Сантехники +
 
     //print_r($res)
 ?>
+
 
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

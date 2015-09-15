@@ -10,6 +10,7 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+//test_dump($arResult);
 $this->setFrameMode(true);?>
 <?CJSCore::Init(array("fx"));?>
 <!--h2><?= GetMessage("CT_BCSF_FILTER_TITLE")?></h2-->
