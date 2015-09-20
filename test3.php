@@ -16,7 +16,7 @@ function clear_section ($iblock_id, $section_id) {
     }
 }
 
-function add_element ($iblock_id, $section_id, $NAME, $PRICE_EUR, $P) {
+function add_element ($iblock_id, $section_id, $NAME, $PRICE_EUR, $P, $DETAIL_PICTURE) {
     $el = new CIBlockElement;
 
     //test_dump($P);
@@ -29,7 +29,8 @@ function add_element ($iblock_id, $section_id, $NAME, $PRICE_EUR, $P) {
         "IBLOCK_SECTION_ID" => $section_id,
         "DETAIL_TEXT" => "",
         "DETAIL_TEXT_TYPE" => "html",
-        "PROPERTY_VALUES" => $P
+        "PROPERTY_VALUES" => $P,
+        "DETAIL_PICTURE" => $DETAIL_PICTURE
     );
 
     if ($last_el_id = $el->Add($arFields))
@@ -92,7 +93,7 @@ function scan_Dir($dir) {
     return $arrfiles;
 }
 
-function add_elements_from_file($filename, $iblock_id, $section_id, $series_name, $series_title_prefix) {
+function add_elements_from_file($filename, $iblock_id, $section_id, $series_name, $series_title_prefix, $price_multiplier) {
     $image_files = scan_Dir("images/tb-images");
     chdir("..");
     test_dump($image_files);
@@ -132,11 +133,7 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
         unset($row[21]);
         unset($row[22]);
 
-        $BRAND_REF="";
-        if ($row[1] == "Риттал")
-            $BRAND_REF="rittal";
-        elseif ($row[1] == "ВЭ")
-            $BRAND_REF="ve";
+        $BRAND_REF="itprom";
 
         $TB_SERIES = "";
         if ($series_name == "TL")
@@ -145,6 +142,12 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
             $TB_SERIES = 124;
         } elseif ($series_name == "VT") {
             $TB_SERIES = 125;
+        } elseif ($series_name == "IBL") {
+            $TB_SERIES = 158;
+        } elseif ($series_name == "IB") {
+            $TB_SERIES = 159;
+        } elseif ($series_name == "IBV") {
+            $TB_SERIES = 160;
         }
 
         $r = explode("+", $row[2]);
@@ -172,7 +175,12 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
         } else
             echo "WRONG SIZE!";
 
-        $PRICE_EUR = str_replace(" ", "", (str_replace("€", "", $row[18])));
+        if ($series_name == "VT" || $series_name == "IBV") {
+            $PRICE_EUR = str_replace(" ", "", (str_replace("€", "", $row[18+1])));
+        } else {
+            $PRICE_EUR = str_replace(" ", "", (str_replace("€", "", $row[18])));
+        }
+
         echo  "Цена ($PRICE_EUR) евро<br />\n";
 
         $w = intval($TB_WIDTH);
@@ -193,13 +201,19 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
         $TP_HEAT_POWER="";
         $TP_IP_CLASS="";
 
-        $series_from_list = explode("-", $power_and_ip[$p_row_id][0])[0];
-        test_dump($series_from_list);
-        echo "Series: " . $series_name . " = " . $series_from_list . "<br>";
+        //$series_from_list = explode("-", $power_and_ip[$p_row_id][0])[0];
+        //test_dump($series_from_list);
+        //echo "Series: " . $series_name . " = " . $series_from_list . "<br>";
 
-        if ($count == 1 && $series_name == $series_from_list) {
+        if ($count == 1) {
             $TP_HEAT_POWER = $power_and_ip[$p_row_id][4];
             $TP_IP_CLASS = $power_and_ip[$p_row_id][6];
+        }
+
+        if ($series_name == "T") {
+            $TP_IP_CLASS = "157";
+        } elseif ($series_name == "VT") {
+            $TP_IP_CLASS = "156";
         }
 
         if ($count == 1)
@@ -215,13 +229,25 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
         $image_count = count($image_files);
         $MORE_PHOTO = Array();
         $MORE_PHOTO_2D = Array();
+        $DETAIL_PICTURE="";
+
+        //Если изображение ищется для серий IB* нужно искать для соответствующих серий TL, T, VT
+        $series_name_img = $series_name;
+        if ($series_name == "IBL") {
+            $series_name_img = "TL";
+        } elseif ($series_name == "IBV") {
+            $series_name_img = "VT";
+        } elseif ($series_name == "IB") {
+            $series_name_img = "T";
+        }
 
         for ($k = 0; $k < $image_count; $k++) {
             $image_path = $image_files[$k];
             $image_name = basename($image_path);
 
             //echo "Image name " . $image_name . "<br>";
-            if (0 === strpos($image_name, $image_prefix) && 0 != strpos($image_path, " " . $series_name . " ")) {
+
+            if (0 === strpos($image_name, $image_prefix) && 0 != strpos($image_path, " " . $series_name_img . " ")) {
                 echo "FOUND IMAGE! " . $image_path . "<br>";
                 if (strpos($image_name, "3D") != false) {
                     $MORE_PHOTO[] = CFile::MakeFileArray($image_path);
@@ -229,6 +255,11 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
                     $MORE_PHOTO_2D[] = CFile::MakeFileArray($image_path);
                 }
             }
+        }
+
+        if (count($MORE_PHOTO) > 0) {
+            $DETAIL_PICTURE = $MORE_PHOTO[0];
+            unset($MORE_PHOTO[0]);
         }
 
         foreach ($MORE_PHOTO_2D as $PHOTO) {
@@ -244,32 +275,60 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
 
         echo $NAME . "<br>";
 
-        $P = Array(
-            "ARTNUMBER" => $NAME . "(" . rand(1, 10000) . ")",
-            "BRAND_REF"=> $BRAND_REF,
-            "TB_SERIES"=>$TB_SERIES,
-            "TB_WIDTH"=>$TB_WIDTH,
-            "TB_HEIGHT"=>$TB_HEIGHT,
-            "TB_DEPTH"=>$TB_DEPTH,
-            "TB_PANELS"=>$TB_PANELS,
-            "TB_DBK_COOL"=>emptyOrValue($row[5], 130),
-            "TB_DBK_HEAT"=>emptyOrValue($row[6], 132),
-            "TB_RESH"=>emptyOrValue($row[8], 134),
-            "TB_FAN"=>emptyOrValue($row[9], 136),
-            "TB_FAN_RESH"=>emptyOrValue($row[10], 138),
-            "TB_DIN_ROZ"=>emptyOrValue($row[11], 140),
-            "TB_DIN_AUTO"=>emptyOrValue($row[12], 1142),
-            "TB_KLEMM"=>emptyOrValue($row[13], 144),
-            "TB_DIN_METIZ"=>emptyOrValue($row[14], 146),
-            "TB_UTEPLITEL"=>emptyOrValue($row[15], 148),
-            "TB_OPTION"=>$TB_OPTION,
-            "TP_IP_CLASS" => $TP_IP_CLASS,
-            "TP_HEAT_POWER" => $TP_HEAT_POWER,
-            "MORE_PHOTO" => $MORE_PHOTO
-        );
+        if ($series_name != "VT" || $series_name != "IBV") {
+            $P = Array(
+                "ARTNUMBER" => $NAME,
+                "BRAND_REF"=> $BRAND_REF,
+                "TB_SERIES"=>$TB_SERIES,
+                "TB_WIDTH"=>$TB_WIDTH,
+                "TB_HEIGHT"=>$TB_HEIGHT,
+                "TB_DEPTH"=>$TB_DEPTH,
+                "TB_PANELS"=>$TB_PANELS,
+                "TB_DBK_COOL"=>emptyOrValue($row[5], 130),
+                "TB_DBK_HEAT"=>emptyOrValue($row[6], 132),
+                "TB_RESH"=>emptyOrValue($row[8], 134),
+                "TB_FAN"=>emptyOrValue($row[9], 136),
+                "TB_FAN_RESH"=>emptyOrValue($row[10], 138),
+                "TB_DIN_ROZ"=>emptyOrValue($row[11], 140),
+                "TB_DIN_AUTO"=>emptyOrValue($row[12], 1142),
+                "TB_KLEMM"=>emptyOrValue($row[13], 144),
+                "TB_DIN_METIZ"=>emptyOrValue($row[14], 146),
+                "TB_UTEPLITEL"=>emptyOrValue($row[15], 148),
+                "TB_OPTION"=>$TB_OPTION,
+                "TP_IP_CLASS" => $TP_IP_CLASS,
+                "TP_HEAT_POWER" => $TP_HEAT_POWER,
+                "MORE_PHOTO" => $MORE_PHOTO
+            );
+        } else {
+            $P = Array(
+                "ARTNUMBER" => $NAME,
+                "BRAND_REF"=> $BRAND_REF,
+                "TB_SERIES"=>$TB_SERIES,
+                "TB_WIDTH"=>$TB_WIDTH,
+                "TB_HEIGHT"=>$TB_HEIGHT,
+                "TB_DEPTH"=>$TB_DEPTH,
+                "TB_PANELS"=>$TB_PANELS,
+                "TB_DBK_COOL"=>emptyOrValue($row[5], 130),
+                "TB_DBK_HEAT"=>emptyOrValue($row[6], 132),
+                "TB_RESH"=>emptyOrValue($row[8], 134),
+                "TB_FAN"=>emptyOrValue($row[9+1], 136),
+                "TB_FAN_RESH"=>emptyOrValue($row[10+1], 138),
+                "TB_DIN_ROZ"=>emptyOrValue($row[11+1], 140),
+                "TB_DIN_AUTO"=>emptyOrValue($row[12+1], 1142),
+                "TB_KLEMM"=>emptyOrValue($row[13+1], 144),
+                "TB_DIN_METIZ"=>emptyOrValue($row[14+1], 146),
+                "TB_UTEPLITEL"=>emptyOrValue($row[15+1], 148),
+                "TB_OPTION"=>$TB_OPTION,
+                "TP_IP_CLASS" => $TP_IP_CLASS,
+                "TP_HEAT_POWER" => $TP_HEAT_POWER,
+                "MORE_PHOTO" => $MORE_PHOTO
+            );
+        }
+
+        $PRICE_EUR = floatval($PRICE_EUR) * $price_multiplier;
 
         if ($w * $w + $h * $h + $d * $d != 0) {
-            add_element($iblock_id, $section_id, $NAME, $PRICE_EUR, $P);
+            add_element($iblock_id, $section_id, $series_title_prefix . " " . $NAME, $PRICE_EUR, $P, $DETAIL_PICTURE);
         } else {
             echo "Не добавлен!<br>";
             echo $w . " " . $h . " " . $d . "<br>";
@@ -280,12 +339,21 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
 
 }
 
+clear_section(4, 40); //Удалить все элементы из серии IB
+clear_section(4, 39); //Удалить все элементы из серии IBL
+clear_section(4, 41); //Удалить все элементы из серии IBV
+
 clear_section(4, 17); //Удалить все элементы из серии T
-//clear_section(4, 18); //Удалить все элементы из серии VT
-//clear_section(4, 19); //Удалить все элементы из серии TL
+clear_section(4, 19); //Удалить все элементы из серии TL
+clear_section(4, 18); //Удалить все элементы из серии VT
 
-echo "Очищены разделы каталога T, TL, VT<br>";
 
-add_elements_from_file("seriesT.csv", 4, 17, "T", "Термобокс ");
-//add_elements_from_file("seriesTL.csv", 4, 19, "TL", "Термобокс ");
-////add_elements_from_file("seriesVT.csv", 4, 18, "VT", "Термобокс ");
+echo "Очищены разделы каталога T, TL, VT, IB, IBV, IBL<br>";
+
+add_elements_from_file("seriesT.csv", 4, 17, "T", "Термобокс ", 1);
+add_elements_from_file("seriesTL.csv", 4, 19, "TL", "Термобокс ", 1);
+add_elements_from_file("seriesVT.csv", 4, 18, "VT", "Термобокс ", 1);
+
+add_elements_from_file("seriesT.csv", 4, 40, "IB", "Термобокс ", 1.15);
+add_elements_from_file("seriesTL.csv", 4, 39, "IBL", "Термобокс ", 1.15);
+add_elements_from_file("seriesVT.csv", 4, 41, "IBV", "Термобокс ", 1.15);
