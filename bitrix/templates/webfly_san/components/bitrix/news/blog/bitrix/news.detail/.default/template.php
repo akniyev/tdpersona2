@@ -20,7 +20,7 @@
       <a href="<?=$arResult["DETAIL_PAGE_URL"]?>"><img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>" /></a>
     </div>
     <div><?=$arResult["~DETAIL_TEXT"]?></div>
-    <p><a href="<?=$arResult["LIST_PAGE_URL"]?>" class="btn-input btn-input-gray" style="width: 180px;height:35px;"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
+	  <br/><p><a href="<?=$arResult["LIST_PAGE_URL"]?>" class="btn-input btn-input-gray" style="width: 180px;height:35px;"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
     <div class="comments-block">
       <?$APPLICATION->IncludeComponent("bitrix:main.include", "", Array("AREA_FILE_SHOW" => "file", "PATH" => SITE_DIR."include/hc_widget.php"));?>
     </div>

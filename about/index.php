@@ -1,11 +1,10 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Компания");
-?>
-<div class="wrapper">
-  <div class="container">
-    <div class="container-hold">
-        <?$APPLICATION->IncludeComponent(
+?><div class="wrapper">
+	<div class="container">
+		<div class="container-hold">
+			 <?$APPLICATION->IncludeComponent(
 	"bitrix:news", 
 	"about", 
 	array(
@@ -79,7 +78,7 @@ $APPLICATION->SetTitle("Компания");
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
 		"PAGER_SHOW_ALL" => "N",
-		"SEF_FOLDER" => SITE_DIR."about/",
+		"SEF_FOLDER" => "/about/",
 		"AJAX_OPTION_ADDITIONAL" => "",
 		"FILTER_NAME" => "",
 		"FILTER_FIELD_CODE" => array(
@@ -90,6 +89,12 @@ $APPLICATION->SetTitle("Компания");
 			0 => "",
 			1 => "",
 		),
+		"COMPONENT_TEMPLATE" => "about",
+		"SET_LAST_MODIFIED" => "N",
+		"DETAIL_SET_CANONICAL_URL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"SHOW_404" => "N",
+		"MESSAGE_404" => "",
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "",
@@ -98,7 +103,6 @@ $APPLICATION->SetTitle("Компания");
 	),
 	false
 );?>
-    </div>
-  </div>
-</div>
-<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
+		</div>
+	</div>
+</div><? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

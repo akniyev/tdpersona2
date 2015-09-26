@@ -10,6 +10,9 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+//test_dump($arResult);
+//test_dump($arParams);
+
 $this->setFrameMode(true);?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section.list",

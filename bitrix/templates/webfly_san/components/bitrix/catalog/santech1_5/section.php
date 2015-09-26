@@ -77,7 +77,11 @@ $this->setFrameMode(true);?>
       "SECTION_TITLE" => "NAME",
       "SECTION_DESCRIPTION" => "DESCRIPTION",
       'HIDE_NOT_AVAILABLE' => $arParams["HIDE_NOT_AVAILABLE"],
-      "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"]
+      "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
+      "CONVERT_CURRENCY" => "Y",
+      "CURRENCY_ID" => "RUB",
+      "SEF_MODE" => "Y",
+      "SEF_RULE" => "#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/"
     ),
     $component,
     array('HIDE_ICONS' => 'Y')

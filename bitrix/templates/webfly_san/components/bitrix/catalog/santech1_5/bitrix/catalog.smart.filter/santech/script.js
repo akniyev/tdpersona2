@@ -8,6 +8,8 @@ function JCSmartFilter(ajaxURL){
 }
 
 JCSmartFilter.prototype.keyup = function(input){
+
+  debugger;
   showLoader();
   if (this.timer)
     clearTimeout(this.timer);

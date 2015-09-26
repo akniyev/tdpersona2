@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);?>
 <div class="heading-blog">
-  <h2 class="title-type01">This is it, man!!!<?=GetMessage("WF_COMPANY_NEWS")?></h2>
+  <p class="main-h2-title-type01"><?=GetMessage("WF_COMPANY_NEWS")?></p>
   <a href="<?=SITE_DIR?>news/" class="heading-link"><?=GetMessage("WF_READ_NEWS")?></a>
   <div class="clearfix"></div>
 </div>

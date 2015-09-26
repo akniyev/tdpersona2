@@ -13,10 +13,16 @@
 $this->setFrameMode(true);
 ?>
 
+<?$APPLICATION->AddHeadString('<style>
+	div.header-info {-webkit-box-sizing: content-box !important;-moz-box-sizing: content-box !important;box-sizing: content-box !important;}
+	.help-block{margin-top:0px !important;margin-bottom:0px !important;}
+</style>');?>
+
 <?if($arParams["USE_RSS"]=="Y"):?>
 	<?
 	if(method_exists($APPLICATION, 'addheadstring'))
 		$APPLICATION->AddHeadString('<link rel="alternate" type="application/rss+xml" title="'.$arResult["FOLDER"].$arResult["URL_TEMPLATES"]["rss"].'" href="'.$arResult["FOLDER"].$arResult["URL_TEMPLATES"]["rss"].'" />');
+
 	?>
 <?endif?>
 

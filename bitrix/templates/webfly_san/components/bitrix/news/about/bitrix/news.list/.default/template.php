@@ -19,7 +19,11 @@ $cat = "";
     <h2 class="title-type02"><?=$cat?></h2>
     <ul>
   <?endif;?>
-      <li id="<?=$this->GetEditAreaId($arItem['ID']);?>"><a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?=$arItem["NAME"]?></a></li>
+	<li id="<?=$this->GetEditAreaId($arItem['ID']);?>">
+		<a href="
+			<?if ($arItem["CODE"] == "staff") { echo "/about/staff/"; } else { echo $arItem["DETAIL_PAGE_URL"]; } ?>
+				"><?=$arItem["NAME"]?></a>
+	</li>
   <?
   $prevCat = $cat;
 endforeach;?>
