@@ -59,6 +59,18 @@ isset($arResult["IPROPERTY_VALUES"]["ELEMENT_DETAIL_PICTURE_FILE_ALT"]) && '' !=
 	? $arResult["IPROPERTY_VALUES"]["ELEMENT_DETAIL_PICTURE_FILE_ALT"]
 	: $arResult['NAME']
 );
+
+
+
+
+//////////////////
+// Fancy Boxing //
+$APPLICATION->AddHeadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js');
+$fancypath = '/bitrix/templates/webfly_san/js/fancybox/';
+$APPLICATION->AddHeadScript($fancypath.'jquery.fancybox-1.3.4.pack.js');
+$APPLICATION->SetAdditionalCSS($fancypath.'jquery.fancybox-1.3.4.css');
+
+
 ?>
 
 
@@ -221,7 +233,9 @@ isset($arResult["IPROPERTY_VALUES"]["ELEMENT_DETAIL_PICTURE_FILE_ALT"]) && '' !=
 										else {$miscPh .= strval($arResult["NAME"]." изображение ".strval($i+2))."\" title=\"".strval($arResult["NAME"]." изображение ".strval($i+2)); }
 										$miscPh .= "\" ";
 										?>
-										<img <?=$miscPh?>  src="<?=$arOnePhoto['SRC']?>" width="90" height="90" >
+										<a rel="productgallery" class="fancyimages" href="<?=$arOnePhoto['SRC']?>">
+											<img <?=$miscPh?>  src="<?=$arOnePhoto['SRC']?>" width="90" height="90" >
+										</a>
 									</a>
 								</li>
 								<? $i++; ?>
@@ -241,9 +255,9 @@ isset($arResult["IPROPERTY_VALUES"]["ELEMENT_DETAIL_PICTURE_FILE_ALT"]) && '' !=
 					$detPh .= "\" ";
 					?>
 
-
-
-					<img itemprop="image" <?=$detPh?> id="<?= $arItemIDs['PICT']?>" class="" src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" >
+					<a rel="productgallery" class="fancyimages" href="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>">
+						<img itemprop="image" <?=$detPh?> id="<?= $arItemIDs['PICT']?>" class="" src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" >
+					</a>
 				</div>
 			</div>
 		</div>
@@ -318,6 +332,17 @@ isset($arResult["IPROPERTY_VALUES"]["ELEMENT_DETAIL_PICTURE_FILE_ALT"]) && '' !=
 			<div class="tab">   </div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			/* This is basic - uses default settings */
+
+			$("a.fancyimages").fancybox();
+
+
+		});
+	</script>
+
 	<script type="text/javascript">
 		$(function(){
 			$(".btn-basket, .btn-credit").on("click",function(){
