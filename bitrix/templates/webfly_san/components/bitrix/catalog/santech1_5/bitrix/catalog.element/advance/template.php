@@ -65,11 +65,19 @@ isset($arResult["IPROPERTY_VALUES"]["ELEMENT_DETAIL_PICTURE_FILE_ALT"]) && '' !=
 
 //////////////////
 // Fancy Boxing //
-$APPLICATION->AddHeadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js');
+$APPLICATION->AddHeadScript('http://code.jquery.com/jquery-latest.min.js');
 $fancypath = '/bitrix/templates/webfly_san/js/fancybox/';
-$APPLICATION->AddHeadScript($fancypath.'jquery.fancybox-1.3.4.pack.js');
-$APPLICATION->SetAdditionalCSS($fancypath.'jquery.fancybox-1.3.4.css');
 
+$APPLICATION->AddHeadScript($fancypath."lib/jquery.mousewheel-3.0.6.pack.js");
+$APPLICATION->AddHeadScript($fancypath.'source/jquery.fancybox.pack.js?v=2.1.5');
+$APPLICATION->SetAdditionalCSS($fancypath.'source/jquery.fancybox.css?v=2.1.5');
+//helpers etc
+$APPLICATION->SetAdditionalCSS($fancypath.'source/helpers/jquery.fancybox-buttons.css?v=1.0.5');
+$APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-buttons.js?v=1.0.5");
+$APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-media.js?v=1.0.6");
+
+$APPLICATION->SetAdditionalCSS($fancypath.'source/helpers/jquery.fancybox-thumbs.css?v=1.0.7');
+$APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js?v=1.0.7");
 
 ?>
 
