@@ -325,6 +325,8 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
             );
         }
 
+
+
         $PRICE_EUR = floatval($PRICE_EUR) * $price_multiplier;
 
         if ($w * $w + $h * $h + $d * $d != 0) {

@@ -1,6 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
-$APPLICATION->SetTitle("Интернет-магазин \"Сантехники +\"");
+$APPLICATION->SetPageProperty("keywords", "термошкафы, термошкаф, купить термошкаф,");
+$APPLICATION->SetPageProperty("title", "Термошкафы ITProm");
+$APPLICATION->SetPageProperty("description", "Купить термошкафы ITProm по лучшей цене с доставкой по Москве и в регионы. Огромный каталог термошкафов ITProm от производителя.");
+$APPLICATION->SetTitle("Термошкафы ITProm");
 ?>
 <div class="wrapper">
   <?$APPLICATION->IncludeComponent(
@@ -194,8 +197,15 @@ $APPLICATION->SetTitle("Интернет-магазин \"Сантехники +
         </div>
         <!--   MainContent (tabs) starts here -->
         <div class="tabset">
-          <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.top", 
+          <?
+//		  global $arFilter;
+//		  $arFilter = array(
+//			  "!PROPERTY_NEWPRODUCT" => false,
+//			  "!PROPERTY_SALELEADER" => false,
+//			  "!PROPERTY_SPECIALOFFER" => false
+//		  );
+		  $APPLICATION->IncludeComponent(
+	"intsys:catalog.top",
 	"main_topcat", 
 	array(
 		"VIEW_MODE" => "SECTION",
