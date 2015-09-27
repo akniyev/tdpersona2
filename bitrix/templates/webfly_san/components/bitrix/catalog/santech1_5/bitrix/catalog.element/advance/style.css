@@ -986,3 +986,13 @@
 .styledLabel.checked .checkboxArea {
   background-position: 0 -26px;
 }
+
+
+ul.description-list  {
+	width: 900px !important;    line-height: 18pt !important;
+    font-size: 14pt !important; 
+}
+
+.description-list li{
+	margin-bottom: 2%;
+}

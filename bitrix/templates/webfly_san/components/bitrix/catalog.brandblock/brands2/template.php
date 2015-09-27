@@ -16,6 +16,7 @@ if(empty($arResult["BRAND_BLOCKS"])) return;
 foreach ($arResult["BRAND_BLOCKS"] as $blockId => $arBB){
   $brandID = 'brand_'.$arResult['ID'].'_'.$this->randString();
   $html = '';?>
-  <a href="<?=SITE_DIR?>brands/<?=htmlspecialcharsbx($blockId)?>/" class="brand-logo" 
+  <a title="<?= $arBB['NAME']?>" alt="<?=$arBB['NAME']?>" href="<?=SITE_DIR?>brands/<?=htmlspecialcharsbx($blockId)?>/" class="brand-logo" 
      style='background: url("<?=$arBB['PICT']['SRC']?>") no-repeat;' title="<?=$arBB['DESCRIPTION']?>"><?=$arBB['LINK']?></a>
+	
 <?}?>

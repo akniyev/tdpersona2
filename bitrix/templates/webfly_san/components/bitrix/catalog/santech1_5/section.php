@@ -80,9 +80,8 @@ $this->setFrameMode(true);?>
       "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
       "CONVERT_CURRENCY" => "Y",
       "CURRENCY_ID" => "RUB",
-      //TODO: make sef
-      //"SEF_MODE" => "Y",
-      //"SEF_RULE" => "/catalog/#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/"
+      "SEF_MODE" => "Y",
+      "SEF_RULE" => "#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/"
     ),
     $component,
     array('HIDE_ICONS' => 'Y')

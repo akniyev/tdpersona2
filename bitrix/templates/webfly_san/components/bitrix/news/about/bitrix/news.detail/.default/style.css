@@ -7,3 +7,6 @@ div.news-detail img.detail_picture
 {
 	color:#486DAA;
 }
+#content .c1 {margin-right:0 !important;}
+div.content-text-inner{padding-right:30px !important;}
+div#sidebar ul.side-menu {min-height: 650px !important;}

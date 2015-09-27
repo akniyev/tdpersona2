@@ -12,6 +12,11 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
+<?$APPLICATION->AddHeadString('<style>
+	div.header-info {-webkit-box-sizing: content-box !important;-moz-box-sizing: content-box !important;box-sizing: content-box !important;}
+	.help-block{margin-top:0px !important;margin-bottom:0px !important;}
+</style>');?>
+
 <div id="content">
 	<div class="c1">
 <?$ElementID = $APPLICATION->IncludeComponent(

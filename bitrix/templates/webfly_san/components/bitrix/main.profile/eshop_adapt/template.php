@@ -37,11 +37,15 @@ if ($arResult['DATA_SAVED'] == 'Y')
 <?
 if($arResult["SOCSERV_ENABLED"])
 {
-	$APPLICATION->IncludeComponent("bitrix:socserv.auth.split", ".default", array(
-			"SHOW_PROFILES" => "Y",
-			"ALLOW_DELETE" => "Y"
-		),
-		false
-	);
+	$APPLICATION->IncludeComponent(
+	"bitrix:socserv.auth.split", 
+	"template1", 
+	array(
+		"SHOW_PROFILES" => "Y",
+		"ALLOW_DELETE" => "Y",
+		"COMPONENT_TEMPLATE" => "template1"
+	),
+	false
+);
 }
 ?>

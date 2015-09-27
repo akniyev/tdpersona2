@@ -1,33 +1,19 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Оплата", 
-		"about/na-sayte/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
 		"Доставка", 
-		"/about/dostavka/", 
+		"about/433/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Гарантия", 
-		"/about/usloviya-garantii/", 
+		"about/438/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
-//	Array(
-//		"Кредит",
-//		"/about/v-kredit/",
-//		Array(),
-//		Array(),
-//		""
-//	),
 	Array(
 		"Бренды", 
 		"brands/", 
@@ -36,11 +22,11 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Акции",
-		"brands/",
-		Array(),
-		Array(),
-		""
+		"Акции", 
+		"sales/", 
+		Array(), 
+		Array(), 
+		"" 
 	),
 	Array(
 		"Блог", 
@@ -63,16 +49,9 @@ $aMenuLinks = Array(
 		Array(), 
 		"" 
 	),
-//	Array(
-//		"Сотрудники",
-//		"/staff/",
-//		Array(),
-//		Array(),
-//		""
-//	),
 	Array(
 		"Контакты", 
-		"/about/contacts/",
+		"/about/contacts/", 
 		Array(), 
 		Array(), 
 		"" 

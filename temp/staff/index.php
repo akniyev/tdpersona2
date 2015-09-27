@@ -79,7 +79,7 @@ $APPLICATION->SetTitle("Сотрудники");
 		"SET_STATUS_404" => "N",
 		"SHOW_404" => "N",
 		"MESSAGE_404" => "",
-		"SEF_FOLDER" => "/staff/",
+		"SEF_FOLDER" => "/about/staff/",
 		"FILE_404" => "",
 		"VARIABLE_ALIASES" => Array("news"=>Array(),"section"=>Array(),"detail"=>Array(),),
 		"TAGS_CLOUD_ELEMENTS" => "150",

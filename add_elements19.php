@@ -128,6 +128,7 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
         $TP_IP_CLASS = 168;
 
         $ARTNUMBER = "arm19" . "-" . $w / 10 . $h / 10 . $d . "_" . $TP_IP_CLASS;
+
         $NAME = $row[0];
 
         $MORE_PHOTO = Array();
@@ -173,3 +174,4 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
 clear_section("4", "29");
 
 add_elements_from_file("series19.csv", "4", "29", "19\"", "Термошкафы антивандальные ", 1, Array());
+
