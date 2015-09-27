@@ -28,6 +28,8 @@ $strSectionDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_DELET
 $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM'));
 $shortText = explode("*MORE*",$arResult["SECTION"]["~DESCRIPTION"]);
 ?>
+
+<?/*
 <div class="content-text">
   <h1><?=isset($arResult['SECTION']["IPROPERTY_VALUES"]["SECTION_PAGE_TITLE"]) && $arResult['SECTION']["IPROPERTY_VALUES"]["SECTION_PAGE_TITLE"] != ""
 			? $arResult['SECTION']["IPROPERTY_VALUES"]["SECTION_PAGE_TITLE"]
@@ -40,6 +42,8 @@ $shortText = explode("*MORE*",$arResult["SECTION"]["~DESCRIPTION"]);
   <a href="javascript:void(0);" class="more"><span class="text1">Больше</span><span class="text2">Меньше</span></a>
   <?endif;?>
 </div>
+*/?>
+
 <?
 if (0 < $arResult["SECTIONS_COUNT"]){?>
 <div class="product-catalog product-catalog03 myProdCat section">

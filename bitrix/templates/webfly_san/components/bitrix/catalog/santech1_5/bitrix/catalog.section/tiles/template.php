@@ -307,6 +307,47 @@ if (!empty($arResult['ITEMS'])) {
       });
     });
   </script>
+
+
+  <!-- SEO-article goes here -->
+  <style>
+    .text-description-content {
+      overflow: hidden;
+      position: relative;
+      text-align: justify;
+      padding:45px 35px 0px 35px;
+      font: 15px/20px 'ubunturegular', Arial, Helvetica, sans-serif;
+      color:#787878;
+    }
+    .box-hide {
+      max-height: 135px;
+    }
+    .text-description-more {
+      text-align: right;
+      font: 16px/20px 'ubunturegular', Arial, Helvetica, sans-serif;
+      padding:20px 35px 45px 0px;
+    }
+
+  </style>
+  <script type="text/javascript">
+    function seoshowmore() {
+      $("#short_text").switchClass("box-hide", "box-show");
+    }
+  </script>
+  <div id="text-description-page" class="text-description-page">
+    <div id="short_text" class="text-description-content box-hide">
+      <h2><?= $arResult["NAME"] ?></h2>
+      <p>
+        <?= $arResult["DESCRIPTION"] ?>
+      </p>
+    </div>
+    <div class="text-description-more">
+      <a onclick="seoshowmore()" rel="nofollow" href="#text-description-page" id="short_text_show_link" class="novisited arrow-link text-description-more-link">
+        <span class="xhr arrow-link-inner">Читать полностью</span>&nbsp;→
+      </a>
+    </div>
+  </div>
+
   <?
 }
 ?>
