@@ -14,7 +14,7 @@
 <div id="content">
   <div class="c1">
     <div class="content-text-inner">
-		<h2 style="margin-bottom: 20px;width:100%;text-align:right;;"><?=$arResult["PROPERTIES"]["SECTION"]["VALUE"]?></h2>
+		<!--<h2 style="margin-bottom: 20px;width:100%;text-align:right;;"><?=$arResult["PROPERTIES"]["SECTION"]["VALUE"]?></h2>-->
    		<h1><?=$arResult["NAME"]?></h1>
 
       <?=$arResult["PREVIEW_TEXT"]?>

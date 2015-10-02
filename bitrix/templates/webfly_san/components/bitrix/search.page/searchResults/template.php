@@ -14,7 +14,7 @@
 <div class="wrapper">
 	<div class="container">
 		<div class="results">
-			<h1>Результаты поиска</h1>
+			<h1>Р РµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР°</h1>
 	<?if($arParams["SHOW_TAGS_CLOUD"] == "Y")
 	{
 		$arCloudParams = Array(
@@ -113,7 +113,7 @@
 		<div class="search-advanced">
 			<div class="search-advanced-result">
 				<?if(is_object($arResult["NAV_RESULT"])):?>
-					<div class="search-result"><?echo GetMessage("CT_BSP_FOUND")?>: <?echo $arResult["NAV_RESULT"]->SelectedRowsCount()?> документов  по запросу <strong>"<?=$arResult["REQUEST"]["QUERY"]?>"</strong></div>
+					<div class="search-result"><?echo GetMessage("CT_BSP_FOUND")?>: <?echo $arResult["NAV_RESULT"]->SelectedRowsCount()?> РґРѕРєСѓРјРµРЅС‚РѕРІ  РїРѕ Р·Р°РїСЂРѕСЃСѓ <strong>"<?=$arResult["REQUEST"]["QUERY"]?>"</strong></div>
 				<?endif;?>
 				<?
 				$arWhere = array();

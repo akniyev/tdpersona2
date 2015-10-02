@@ -10,6 +10,17 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+
+$arResult["VARIABLES"]["SECTION_CODE_PATH"] = $_REQUEST["SECTION_CODE_PATH"];
+$arResult["VARIABLES"]["SECTION_CODE"] = $_REQUEST["SECTION_CODE"];
+
+
+//test_dump($arResult);
+//test_dump($_REQUEST);
+//test_dump($arParams);
+
+
+
 $this->setFrameMode(true);?>
 <?if ($arParams['USE_FILTER'] == 'Y'){
   $arFilter = array(
@@ -71,8 +82,9 @@ $this->setFrameMode(true);?>
       "PRICE_CODE" => $arParams["PRICE_CODE"],
       "CACHE_TYPE" => $arParams["CACHE_TYPE"],
       "CACHE_TIME" => $arParams["CACHE_TIME"],
+      "DISPLAY_ELEMENT_COUNT" => "N",
       "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-      "SAVE_IN_SESSION" => "N",
+      "SAVE_IN_SESSION" => "Y",
       "XML_EXPORT" => "Y",
       "SECTION_TITLE" => "NAME",
       "SECTION_DESCRIPTION" => "DESCRIPTION",
@@ -80,8 +92,13 @@ $this->setFrameMode(true);?>
       "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
       "CONVERT_CURRENCY" => "Y",
       "CURRENCY_ID" => "RUB",
-      "SEF_MODE" => "Y",
-      "SEF_RULE" => "#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/"
+      //"SEF_MODE" => $arParams["SEF_MODE"],
+      //"SEF_RULE" => $arParams["SEF_URL_TEMPLATES"]["smart_filter"],
+      //"SECTION_CODE_PATH" => $arResult["VARIABLES"]["SECTION_CODE_PATH"],
+      //"SMART_FILTER_PATH" => $_REQUEST["SMART_FILTER_PATH"],
+      "SEF_MODE" => $arParams["SEF_MODE"],
+      "SEF_RULE" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["smart_filter"],
+      "SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
     ),
     $component,
     array('HIDE_ICONS' => 'Y')

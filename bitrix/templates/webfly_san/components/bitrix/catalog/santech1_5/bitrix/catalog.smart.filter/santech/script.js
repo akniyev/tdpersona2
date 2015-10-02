@@ -9,7 +9,7 @@ function JCSmartFilter(ajaxURL){
 
 JCSmartFilter.prototype.keyup = function(input){
 
-  debugger;
+  //debugger;
   showLoader();
   if (this.timer)
     clearTimeout(this.timer);
@@ -28,16 +28,27 @@ JCSmartFilter.prototype.click = function(checkbox){
 }
 
 JCSmartFilter.prototype.reload = function(input){
+  //debugger;
   this.position = BX.pos(input, true);
   this.form = BX.findParent(input, {'tag': 'form'});
+  var values = new Array;
   if (this.form){
-    var values = new Array;
     values[0] = {name: 'ajax', value: 'y'};
     this.gatherInputsValues(values, BX.findChildren(this.form, {'tag': 'input'}, true));
     window.curFilterinput = input;
     $.post(this.ajaxURL,values,this.reloadOnPost);
     //BX.ajax.loadJSON(this.ajaxURL, this.values2post(values), BX.delegate(this.postHandler, this));
   }
+  $.post(this.ajaxURL,values,function(result) {});
+  location.href = this.ajaxURL;
+}
+
+JCSmartFilter.prototype.reset = function(result) {
+  debugger;
+  var newResult = result.split('<!--JSON-->');
+  newResult = $.parseJSON(newResult[1]);
+  var url = BX.util.htmlspecialcharsback(newResult.FILTER_URL);
+  location.href = url;
 }
 /**
  * Перезагрузка страницы по JSON объекту
@@ -49,12 +60,13 @@ JCSmartFilter.prototype.reloadOnPost = function(result){
   newResult = $.parseJSON(newResult[1]);
   var count = newResult.ELEMENT_COUNT;
   var url = BX.util.htmlspecialcharsback(newResult.FILTER_URL);
-  if(url.indexOf("item_count") == -1){
-    location.href = url+"&item_count="+count;
-  }else{
-    var newUrl = url.replace(/(&|\?)item_count=\d+/,"$1item_count="+count);
-    location.href = newUrl;
-  }
+  //if(url.indexOf("item_count") == -1){
+  //  location.href = url+"?item_count="+count;
+  //}else{
+  //  var newUrl = url.replace(/(&|\?)item_count=\d+/,"$1item_count="+count);
+  //  location.href = newUrl;
+  //}
+  location.href = url;
 }
 
 JCSmartFilter.prototype.postHandler = function(result){

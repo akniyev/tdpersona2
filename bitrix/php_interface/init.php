@@ -4,6 +4,8 @@ if($_GET["shmeall"] == "cathay"){
 	ini_set("display_errors", 1);
 }
 
+define("LOG_FILENAME", $_SERVER["DOCUMENT_ROOT"] . "/log.txt");
+
 function test_dump($v) {
 	global $USER;
 	if ($USER -> isAdmin()) {
