@@ -1,7 +1,11 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
-
+global $USER;
+if (!($USER -> isAdmin())) {
+    echo "<h1>NOT ADMIN!</h1>";
+    die();
+}
 
 function clear_section ($iblock_id, $section_id) {
     $items_raw = CIBlockElement::GetList(
@@ -276,48 +280,48 @@ function add_elements_from_file($filename, $iblock_id, $section_id, $series_name
             $P = Array(
                 "ARTNUMBER" => $NAME,
                 "BRAND_REF"=> $BRAND_REF,
-                "TB_SERIES"=>$TB_SERIES,
-                "TB_WIDTH"=>$TB_WIDTH,
-                "TB_HEIGHT"=>$TB_HEIGHT,
-                "TB_DEPTH"=>$TB_DEPTH,
-                "TB_PANELS"=>$TB_PANELS,
-                "TB_DBK_COOL"=>$common_options["TB_DBK_COOL"],
-                "TB_DBK_HEAT"=>emptyOrValue($row[6], 132),
-                "TB_RESH"=>emptyOrValue($row[8], 134),
-                "TB_FAN"=>emptyOrValue($row[9], 136),
-                "TB_FAN_RESH"=>emptyOrValue($row[10], 138),
-                "TB_DIN_ROZ"=>emptyOrValue($row[11], 140),
-                "TB_DIN_AUTO"=>emptyOrValue($row[12], 1142),
-                "TB_KLEMM"=>emptyOrValue($row[13], 144),
-                "TB_DIN_METIZ"=>emptyOrValue($row[14], 146),
-                "TB_UTEPLITEL"=>emptyOrValue($row[15], 148),
-                "TB_OPTION"=>$TB_OPTION,
-                "TP_IP_CLASS" => $TP_IP_CLASS,
-                "TP_HEAT_POWER" => $TP_HEAT_POWER,
+                "SERIES"=>$TB_SERIES,
+                "WIDTH"=>$TB_WIDTH,
+                "HEIGHT"=>$TB_HEIGHT,
+                "DEPTH"=>$TB_DEPTH,
+                "PANELS"=>$TB_PANELS,
+                "VENTILACIA"=>$common_options["VENTILACIA"],
+                "DBK_HEAT"=>emptyOrValue($row[6], 132),
+                "RESH"=>emptyOrValue($row[8], 134),
+                "FAN"=>emptyOrValue($row[9], 136),
+                "FAN_RESH"=>emptyOrValue($row[10], 138),
+                "DIN_ROZ"=>emptyOrValue($row[11], 140),
+                "DIN_AUTO"=>emptyOrValue($row[12], 1142),
+                "KLEMM"=>emptyOrValue($row[13], 144),
+                "DIN_METIZ"=>emptyOrValue($row[14], 146),
+                "UTEPLITEL"=>emptyOrValue($row[15], 148),
+                "OPTION"=>$TB_OPTION,
+                "IP_CLASS" => $TP_IP_CLASS,
+                "HEAT_POWER" => $TP_HEAT_POWER,
                 "MORE_PHOTO" => $MORE_PHOTO
             );
         } else {
             $P = Array(
                 "ARTNUMBER" => $NAME,
                 "BRAND_REF"=> $BRAND_REF,
-                "TB_SERIES"=>$TB_SERIES,
-                "TB_WIDTH"=>$TB_WIDTH,
-                "TB_HEIGHT"=>$TB_HEIGHT,
-                "TB_DEPTH"=>$TB_DEPTH,
-                "TB_PANELS"=>$TB_PANELS,
-                "TB_DBK_COOL"=>$common_options["TB_DBK_COOL"],
-                "TB_DBK_HEAT"=>emptyOrValue($row[6], 132),
-                "TB_RESH"=>emptyOrValue($row[8], 134),
-                "TB_FAN"=>emptyOrValue($row[9+1], 136),
-                "TB_FAN_RESH"=>emptyOrValue($row[10+1], 138),
-                "TB_DIN_ROZ"=>emptyOrValue($row[11+1], 140),
-                "TB_DIN_AUTO"=>emptyOrValue($row[12+1], 1142),
-                "TB_KLEMM"=>emptyOrValue($row[13+1], 144),
-                "TB_DIN_METIZ"=>emptyOrValue($row[14+1], 146),
-                "TB_UTEPLITEL"=>emptyOrValue($row[15+1], 148),
-                "TB_OPTION"=>$TB_OPTION,
-                "TP_IP_CLASS" => $TP_IP_CLASS,
-                "TP_HEAT_POWER" => $TP_HEAT_POWER,
+                "SERIES"=>$TB_SERIES,
+                "WIDTH"=>$TB_WIDTH,
+                "HEIGHT"=>$TB_HEIGHT,
+                "DEPTH"=>$TB_DEPTH,
+                "PANELS"=>$TB_PANELS,
+                "VENTILACIA"=>$common_options["VENTILACIA"],
+                "DBK_HEAT"=>emptyOrValue($row[6], 132),
+                "RESH"=>emptyOrValue($row[8], 134),
+                "FAN"=>emptyOrValue($row[9+1], 136),
+                "FAN_RESH"=>emptyOrValue($row[10+1], 138),
+                "DIN_ROZ"=>emptyOrValue($row[11+1], 140),
+                "DIN_AUTO"=>emptyOrValue($row[12+1], 1142),
+                "KLEMM"=>emptyOrValue($row[13+1], 144),
+                "DIN_METIZ"=>emptyOrValue($row[14+1], 146),
+                "UTEPLITEL"=>emptyOrValue($row[15+1], 148),
+                "OPTION"=>$TB_OPTION,
+                "IP_CLASS" => $TP_IP_CLASS,
+                "HEAT_POWER" => $TP_HEAT_POWER,
                 "MORE_PHOTO" => $MORE_PHOTO
             );
         }
@@ -349,10 +353,10 @@ clear_section(4, 18); //Удалить все элементы из серии V
 
 echo "Очищены разделы каталога T, TL, VT, IB, IBV, IBL<br>";
 
-add_elements_from_file("seriesT.csv", 4, 17, "T", "Термошкаф ", 1, Array("TB_DBK_COOL" => 130));
-add_elements_from_file("seriesTL.csv", 4, 19, "TL", "Термошкаф ", 1, Array("TB_DBK_COOL" => 163));
-add_elements_from_file("seriesVT.csv", 4, 18, "VT", "Термошкаф ", 1, Array("TB_DBK_COOL" => 162));
+add_elements_from_file("seriesT.csv", 4, 17, "T", "Термошкаф ", 1, Array("VENTILACIA" => 130));
+add_elements_from_file("seriesTL.csv", 4, 19, "TL", "Термошкаф ", 1, Array("VENTILACIA" => 163));
+add_elements_from_file("seriesVT.csv", 4, 18, "VT", "Термошкаф ", 1, Array("VENTILACIA" => 162));
 
-add_elements_from_file("seriesT.csv", 4, 40, "IB", "Термошкаф ", 1.15, Array("TB_DBK_COOL" => 130));
-add_elements_from_file("seriesTL.csv", 4, 39, "IBL", "Термошкаф ", 1.15, Array("TB_DBK_COOL" => 163));
-add_elements_from_file("seriesVT.csv", 4, 41, "IBV", "Термошкаф ", 1.15, Array("TB_DBK_COOL" => 162));
+add_elements_from_file("seriesT.csv", 4, 40, "IB", "Термошкаф ", 1.15, Array("VENTILACIA" => 130));
+add_elements_from_file("seriesTL.csv", 4, 39, "IBL", "Термошкаф ", 1.15, Array("VENTILACIA" => 163));
+add_elements_from_file("seriesVT.csv", 4, 41, "IBV", "Термошкаф ", 1.15, Array("VENTILACIA" => 162));

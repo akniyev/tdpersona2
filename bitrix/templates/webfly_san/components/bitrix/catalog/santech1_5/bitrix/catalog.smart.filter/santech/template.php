@@ -12,11 +12,11 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 
-//test_dump($arResult);
+//test_dump($_REQUEST);
 
 $this->setFrameMode(true);?>
 <?CJSCore::Init(array("fx"));?>
-<noindex>
+<noindex xmlns:http="http://www.w3.org/1999/xhtml">
 <!--h2><?= GetMessage("CT_BCSF_FILTER_TITLE")?></h2-->
 <form name="<?= $arResult["FILTER_NAME"]."_form"?>" action="<?= $arResult["FORM_ACTION"]?>" method="get" class="smartfilter choise-form">
     <fieldset>
@@ -173,7 +173,7 @@ $this->setFrameMode(true);?>
         <span class="icon"></span>
         <input class="bx_filter_search_button btn-input" type="submit" id="set_filter" name="set_filter" value="<?=GetMessage("CT_BCSF_SET_FILTER")?>" style="width:120px;float:left;"/>
         <input class="bx_filter_search_button btn-input btn-input-gray" type="button" id="del_filter" name="del_filter" value="<?=GetMessage("CT_BCSF_DEL_FILTER")?>" style="width:120px;float:left;margin-left:8px;"
-               onclick="smartFilter.reload('reset')"/>
+               onclick="reset_filter()">
         <div class="bx_filter_popup_result left" id="modef" <?if(!isset($arResult["ELEMENT_COUNT"])) echo 'style="display:none"';?> style="display: inline-block;">
             <?= GetMessage("CT_BCSF_FILTER_COUNT", array("#ELEMENT_COUNT#" => '<span id="modef_num">'.intval($arResult["ELEMENT_COUNT"]).'</span>'));?>
             <span class="arrow"></span>
@@ -183,5 +183,18 @@ $this->setFrameMode(true);?>
 </form>
 <script>
     var smartFilter = new JCSmartFilter('<?= CUtil::JSEscape($arResult["FORM_ACTION"])?>');
+
+    function reset_filter() {
+        var url = window.location.href;
+        if (url.indexOf('/filter/') > -1) {
+            url = url.substring(0, url.indexOf('/filter/')+1);
+        }
+        if (url.indexOf('?') > -1){
+            url += '&del_filter=y'
+        }else{
+            url += '?del_filter=y'
+        }
+        window.location.href = url;
+    }
 </script>
 </noindex>
