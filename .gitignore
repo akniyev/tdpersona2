@@ -28,8 +28,8 @@ bitrix/wizards/
 bitrix/.access.php
 bitrix/.settings.php
 bitrix/coupon_activation.php
-bitrix/footer.php
-bitrix/header.php
+#bitrix/footer.php
+#bitrix/header.php
 bitrix/index.php
 bitrix/license_key.php
 bitrix/p3p.xml

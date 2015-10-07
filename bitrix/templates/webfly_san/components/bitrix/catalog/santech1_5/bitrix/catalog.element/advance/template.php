@@ -80,9 +80,6 @@ $APPLICATION->SetAdditionalCSS($fancypath.'source/helpers/jquery.fancybox-thumbs
 $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js?v=1.0.7");
 
 ?>
-
-
-
 <div itemscope itemtype="http://schema.org/Product">
 
 	<div class="description-product" id="<?=$arItemIDs['ID']?>">

@@ -197,8 +197,15 @@ $APPLICATION->SetTitle("Термошкафы ITProm");
         </div>
         <!--   MainContent (tabs) starts here -->
         <div class="tabset">
-            <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.top", 
+          <?
+//		  global $arFilter;
+//		  $arFilter = array(
+//			  "!PROPERTY_NEWPRODUCT" => false,
+//			  "!PROPERTY_SALELEADER" => false,
+//			  "!PROPERTY_SPECIALOFFER" => false
+//		  );
+		  $APPLICATION->IncludeComponent(
+	"intsys:catalog.top",
 	"main_topcat", 
 	array(
 		"VIEW_MODE" => "SECTION",

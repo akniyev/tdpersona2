@@ -12,11 +12,11 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 
-//test_dump($arResult);
+//test_dump($_REQUEST);
 
 $this->setFrameMode(true);?>
 <?CJSCore::Init(array("fx"));?>
-<noindex>
+<noindex xmlns:http="http://www.w3.org/1999/xhtml">
 <!--h2><?= GetMessage("CT_BCSF_FILTER_TITLE")?></h2-->
 <form name="<?= $arResult["FILTER_NAME"]."_form"?>" action="<?= $arResult["FORM_ACTION"]?>" method="get" class="smartfilter choise-form">
     <fieldset>
@@ -34,10 +34,12 @@ $this->setFrameMode(true);?>
             $arItem["VALUES"]["MIN"]["VALUE"] = round($arItem["VALUES"]["MIN"]["VALUE"]);
             $arItem["VALUES"]["MAX"]["VALUE"] = round($arItem["VALUES"]["MAX"]["VALUE"]);
 
-            if(isset($_GET[$arItem["VALUES"]["MIN"]["CONTROL_NAME"]])) $curMin = $_GET[$arItem["VALUES"]["MIN"]["CONTROL_NAME"]];
+            if($arItem["VALUES"]["MIN"]["HTML_VALUE"]) $curMin = $arItem["VALUES"]["MIN"]["HTML_VALUE"];
             else $curMin = $arItem["VALUES"]["MIN"]["VALUE"];
-            if(isset($_GET[$arItem["VALUES"]["MAX"]["CONTROL_NAME"]])) $curMax = $_GET[$arItem["VALUES"]["MAX"]["CONTROL_NAME"]];
+
+            if($arItem["VALUES"]["MAX"]["HTML_VALUE"]) $curMax = $arItem["VALUES"]["MAX"]["HTML_VALUE"];
             else $curMax = $arItem["VALUES"]["MAX"]["VALUE"];
+
             ?>
             <div class="slider-holder" style="border-bottom: 1px solid #b7b7b7">
                 <div class="slide-text">
@@ -46,12 +48,12 @@ $this->setFrameMode(true);?>
               <span id="from" class="num">
 <!--                TODO: сделать с помощью нормальных стилей-->
                 <input style="width: 4em" class="min-price" type="text" name="<?= $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
-                       id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>" eur="77" value="<?= $curMin ?>" size="5" onchange="smartFilter.keyup(this);"/>
+                       id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>" eur="77" value="<?=  $curMin ?>" size="5" onchange="smartFilter.keyup(this);"/>
               </span> 
               <span class="text"><?=GetMessage("CT_BCSF_FILTER_TO")?> </span>
               <span id="to" class="num">
                 <input style="width: 4em" class="max-price" type="text" name="<?= $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
-                       id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?= $curMax ?>"	size="5" onchange="smartFilter.keyup(this);"/>
+                       id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?=  $curMax ?>"	size="5" onchange="smartFilter.keyup(this);"/>
               </span>
               <span class="rouble"><!--€-->⃏</span>
             </span>
@@ -62,10 +64,10 @@ $this->setFrameMode(true);?>
                 $(function(){
                     $('#slider').slider({
                         range:true,
-                        values: [<?=$curMin?>, <?= $curMax?>],
+                        values: [<?=$curMin?>, <?=$curMax?>],
                         min: <?= $arItem["VALUES"]["MIN"]["VALUE"]?>,
                         max: <?= $arItem["VALUES"]["MAX"]["VALUE"]?>,
-                        step:100,
+                        step:50,
                         slide: function(event, ui) {
                             $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').val(ui.values[0]);
                             $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
@@ -86,9 +88,11 @@ $this->setFrameMode(true);?>
 
                 if (!$arItem["VALUES"]["MIN"]["VALUE"] || !$arItem["VALUES"]["MAX"]["VALUE"] || $arItem["VALUES"]["MIN"]["VALUE"] == $arItem["VALUES"]["MAX"]["VALUE"])
                     continue;
-                if(isset($_GET[$arItem["VALUES"]["MIN"]["CONTROL_NAME"]])) $curMin = $_GET[$arItem["VALUES"]["MIN"]["CONTROL_NAME"]];
+
+                if($arItem["VALUES"]["MIN"]["HTML_VALUE"]) $curMin = $arItem["VALUES"]["MIN"]["HTML_VALUE"];
                 else $curMin = $arItem["VALUES"]["MIN"]["VALUE"];
-                if(isset($_GET[$arItem["VALUES"]["MAX"]["CONTROL_NAME"]])) $curMax = $_GET[$arItem["VALUES"]["MAX"]["CONTROL_NAME"]];
+
+                if($arItem["VALUES"]["MAX"]["HTML_VALUE"]) $curMax = $arItem["VALUES"]["MAX"]["HTML_VALUE"];
                 else $curMax = $arItem["VALUES"]["MAX"]["VALUE"];
                 ?>
                 <div class="slider-holder elem-hold-<?=$key?>" style="border-bottom: 1px solid #b7b7b7">
@@ -120,10 +124,10 @@ $this->setFrameMode(true);?>
                     $(function(){
                         $('#slider<?=$key?>').slider({
                             range:true,
-                            values: [<?=$curMin?>, <?= $curMax?>],
+                            values: [<?=$curMin?>, <?=$curMax?>],
                             min: <?= $arItem["VALUES"]["MIN"]["VALUE"]?>,
                             max: <?= $arItem["VALUES"]["MAX"]["VALUE"]?>,
-                            step:1,
+                            step:50,
                             slide: function(event, ui) {
                                 $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').val(ui.values[0]);
                                 $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
@@ -169,7 +173,7 @@ $this->setFrameMode(true);?>
         <span class="icon"></span>
         <input class="bx_filter_search_button btn-input" type="submit" id="set_filter" name="set_filter" value="<?=GetMessage("CT_BCSF_SET_FILTER")?>" style="width:120px;float:left;"/>
         <input class="bx_filter_search_button btn-input btn-input-gray" type="button" id="del_filter" name="del_filter" value="<?=GetMessage("CT_BCSF_DEL_FILTER")?>" style="width:120px;float:left;margin-left:8px;"
-               onclick="location.href='<?=$APPLICATION->GetCurDir()?>'"/>
+               onclick="reset_filter()">
         <div class="bx_filter_popup_result left" id="modef" <?if(!isset($arResult["ELEMENT_COUNT"])) echo 'style="display:none"';?> style="display: inline-block;">
             <?= GetMessage("CT_BCSF_FILTER_COUNT", array("#ELEMENT_COUNT#" => '<span id="modef_num">'.intval($arResult["ELEMENT_COUNT"]).'</span>'));?>
             <span class="arrow"></span>
@@ -179,5 +183,18 @@ $this->setFrameMode(true);?>
 </form>
 <script>
     var smartFilter = new JCSmartFilter('<?= CUtil::JSEscape($arResult["FORM_ACTION"])?>');
+
+    function reset_filter() {
+        var url = window.location.href;
+        if (url.indexOf('/filter/') > -1) {
+            url = url.substring(0, url.indexOf('/filter/')+1);
+        }
+        if (url.indexOf('?') > -1){
+            url += '&del_filter=y'
+        }else{
+            url += '?del_filter=y'
+        }
+        window.location.href = url;
+    }
 </script>
 </noindex>

@@ -24,6 +24,8 @@ if (!empty($arResult['ITEMS'])) {
   $countAll = 0;
   if(!empty($_GET["item_count"])) $countAll = $_GET["item_count"];
   else $countAll = $_SESSION["mywf"]["el_cnt"];
+
+//  if (!$countAll) $countAll = 1;
 ?>
 <script type="text/javascript">
   var page = 1;
