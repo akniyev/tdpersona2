@@ -10,6 +10,13 @@ function JCSmartFilter(ajaxURL){
 JCSmartFilter.prototype.keyup = function(input){
 
   //debugger;
+  //alert($(input).attr("class"));
+  //alert($(input).attr("class", "new_value"));
+
+  //if (input.value != input.defaultValue) {
+  //  alert(input.value + " != " + input.defaultValue);
+  //}
+
   showLoader();
   if (this.timer)
     clearTimeout(this.timer);
