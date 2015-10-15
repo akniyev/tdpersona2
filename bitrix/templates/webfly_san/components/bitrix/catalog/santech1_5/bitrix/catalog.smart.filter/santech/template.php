@@ -39,6 +39,13 @@ $this->setFrameMode(true);?>
             if($arItem["VALUES"]["MAX"]["HTML_VALUE"]) $curMax = $arItem["VALUES"]["MAX"]["HTML_VALUE"];
             else $curMax = $arItem["VALUES"]["MAX"]["VALUE"];
 
+            if ($curMin == $arItem["VALUES"]["MIN"]["VALUE"] && $curMax == $arItem["VALUES"]["MAX"]["VALUE"]) {
+                $includeInUrl = "no";
+            } else {
+                $includeInUrl = "yes";
+            }
+//            test_dump($curMin);
+//            test_dump($arItem["VALUES"]["MIN"]["VALUE"]);
             ?>
             <div class="slider-holder" style="border-bottom: 1px solid #b7b7b7">
                 <div class="slide-text">
@@ -47,12 +54,12 @@ $this->setFrameMode(true);?>
               <span id="from" class="num">
 <!--                TODO: сделать с помощью нормальных стилей-->
                 <input style="width: 4em" class="min-price" type="text" name="<?= $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
-                       id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>" eur="77" value="<?=  $curMin ?>" size="5" onchange="smartFilter.keyup(this);"/>
+                       id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>" eur="77" value="<?=  $curMin ?>" size="5" includeInUrl="<?=$includeInUrl?>" min_value="<?=$arItem["VALUES"]["MIN"]["VALUE"]?>" onchange="smartFilter.onValueChanged(this);"/>
               </span> 
               <span class="text"><?=GetMessage("CT_BCSF_FILTER_TO")?> </span>
               <span id="to" class="num">
                 <input style="width: 4em" class="max-price" type="text" name="<?= $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
-                       id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?=  $curMax ?>"	size="5" onchange="smartFilter.keyup(this);"/>
+                       id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?=  $curMax ?>"	size="5" includeInUrl="<?=$includeInUrl?>" max_value="<?=$arItem["VALUES"]["MAX"]["VALUE"]?>" onchange="smartFilter.onValueChanged(this);"/>
               </span>
               <span class="rouble"><!--€-->⃏</span>
             </span>
@@ -93,6 +100,12 @@ $this->setFrameMode(true);?>
 
                 if($arItem["VALUES"]["MAX"]["HTML_VALUE"]) $curMax = $arItem["VALUES"]["MAX"]["HTML_VALUE"];
                 else $curMax = $arItem["VALUES"]["MAX"]["VALUE"];
+
+                if ($curMin == $arItem["VALUES"]["MIN"]["VALUE"] && $curMax == $arItem["VALUES"]["MAX"]["VALUE"]) {
+                    $includeInUrl = "no";
+                } else {
+                    $includeInUrl = "yes";
+                }
                 ?>
                 <div class="slider-holder elem-hold-<?=$key?>" style="border-bottom: 1px solid #b7b7b7">
                     <div class="slide-text">
@@ -100,12 +113,12 @@ $this->setFrameMode(true);?>
 			  <span class="num-hold"><span class="text"><?=GetMessage("CT_BCSF_FILTER_FROM")?></span>
               <span id="from" class="num">
                 <input class="min-value" type="text" name="<?= $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
-                       id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"	value="<?= $curMin?>" size="5" onchange="smartFilter.keyup(this);"/>
+                       id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"	value="<?= $curMin?>" size="5" includeInUrl="<?=$includeInUrl?>" min_value="<?=$arItem["VALUES"]["MIN"]["VALUE"]?>" onchange="smartFilter.onValueChanged(this);"/>
               </span>
               <span class="text"><?=GetMessage("CT_BCSF_FILTER_TO")?></span>
               <span id="to" class="num">
                 <input class="max-value" type="text" name="<?= $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
-                       id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?= $curMax?>"	size="5" onchange="smartFilter.keyup(this);"/>
+                       id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?= $curMax?>"	size="5" includeInUrl="<?=$includeInUrl?>" max_value="<?=$arItem["VALUES"]["MAX"]["VALUE"]?>" onchange="smartFilter.onValueChanged(this);"/>
               </span>
               <span class="text"><?
                   if ($arItem["NAME"] == "Мощность нагревателя") {
@@ -135,7 +148,6 @@ $this->setFrameMode(true);?>
                                 $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').val(ui.values[0]);
                                 $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
                                 $('.elem-hold-<?=$key++?> .min-value').trigger("change");
-                                console.log($('.elem-hold-<?=$key++?>'));
                             }
                         });
                     });

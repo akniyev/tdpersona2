@@ -9,8 +9,9 @@ function JCSmartFilter(ajaxURL){
 
 JCSmartFilter.prototype.keyup = function(input){
   showLoader();
+  console.log(input);
   if (this.timer)
-    clearTimeout(this.timer);
+    clearTimeout(this.timer) ;
   this.timer = setTimeout(BX.delegate(function() {
     this.reload(input);
   }, this), 1000);
@@ -62,13 +63,14 @@ JCSmartFilter.prototype.reloadOnPost = function(result){
 
   var count = newResult.ELEMENT_COUNT;
   var url = BX.util.htmlspecialcharsback(newResult.FILTER_URL);
-  //if(url.indexOf("item_count") == -1){
-  //  location.href = url+"?item_count="+count;
-  //}else{
-  //  var newUrl = url.replace(/(&|\?)item_count=\d+/,"$1item_count="+count);
-  //  location.href = newUrl;
-  //}
-  location.href = url;
+
+  if(url.indexOf("item_count") == -1){
+    location.href = url+"?item_count="+count;
+  }else{
+    var newUrl = url.replace(/(&|\?)item_count=\d+/,"$1item_count="+count);
+    location.href = newUrl;
+  }
+  //location.href = url;
 }
 
 JCSmartFilter.prototype.postHandler = function(result){
@@ -116,6 +118,34 @@ JCSmartFilter.prototype.postHandler = function(result){
   }
 }
 
+JCSmartFilter.prototype.onValueChanged = function (x) {
+  //alert("Value changed!");
+  console.log("onValueChanged:");
+  var name_min = x.getAttribute("name");
+  var name_max = name_min.replace("MIN", "MAX");
+  var y = document.getElementsByName(name_max)[0];
+  var current_min_value = x.getAttribute("min_value");
+  var current_max_value = y.getAttribute("max_value");
+
+  if (x.value == current_min_value && y.value == current_max_value) {
+    x.setAttribute("includeInUrl", "no");
+    y.setAttribute("includeInUrl", "no");
+  } else {
+    x.setAttribute("includeInUrl", "yes");
+    y.setAttribute("includeInUrl", "yes");
+  }
+  console.log(current_min_value);
+  console.log(x.value);
+  console.log(current_max_value);
+  console.log(y.value);
+  console.log(x);
+  console.log(y);
+
+  debugger;
+
+  this.keyup(x);
+}
+
 JCSmartFilter.prototype.gatherInputsValues = function(values, elements){
   if (elements){
     for (var i = 0; i < elements.length; i++){
@@ -129,7 +159,7 @@ JCSmartFilter.prototype.gatherInputsValues = function(values, elements){
         case 'password':
         case 'hidden':
         case 'select-one':
-          if (el.value.length)
+          if (el.value.length && el.getAttribute("includeInUrl") == "yes")
             values[values.length] = {name: el.name, value: el.value};
           break;
         case 'radio':
