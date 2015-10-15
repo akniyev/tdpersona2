@@ -135,6 +135,7 @@ $this->setFrameMode(true);?>
                                 $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').val(ui.values[0]);
                                 $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
                                 $('.elem-hold-<?=$key++?> .min-value').trigger("change");
+                                console.log($('.elem-hold-<?=$key++?>'));
                             }
                         });
                     });
