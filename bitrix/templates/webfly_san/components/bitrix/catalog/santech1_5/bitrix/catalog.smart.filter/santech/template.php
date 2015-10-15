@@ -11,7 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 
-//test_dump($_REQUEST);
+//test_dump($arResult);
 
 $this->setFrameMode(true);?>
 <?CJSCore::Init(array("fx"));?>
@@ -132,19 +132,8 @@ $this->setFrameMode(true);?>
                                 $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
                             },
                             stop: function(event, ui){
-                                //event.target.includeInURL = "";
-                                alert('<?=$arItem["VALUES"]["MIN"]["VALUE"]?>' + "!=" + '<?=$curMin?>');
-                                if ('<?=$arItem["VALUES"]["MIN"]["VALUE"]?>' != '<?=$curMin?>' && '<?=$arItem["VALUES"]["MAX"]["VALUE"]?>' != '<?=$curMax?>') {
-                                    alert("TRUE");
-                                } else alert("FALSE");
-                                $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').attr("includeInURL", "true");
-                                debugger;
                                 $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').val(ui.values[0]);
                                 $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
-//                                if (ui.values[0] != <?//=$arItem["VALUES"]["MIN"]["VALUE"]?>// || ui.values[1] != <?//=$arItem["VALUES"]["MAX"]["VALUE"]?>//)
-//                                    alert(ui.values[0] + " (" + <?//=$arItem["VALUES"]["MIN"]["VALUE"]?>// + "); " + ui.values[1] + " (" + <?//=$arItem["VALUES"]["MAX"]["VALUE"]?>// + "); ");
-//                                else
-//                                    alert("allRight!");
                                 $('.elem-hold-<?=$key++?> .min-value').trigger("change");
                             }
                         });
@@ -153,7 +142,7 @@ $this->setFrameMode(true);?>
             <?elseif(!empty($arItem["VALUES"]) && !isset($arItem["PRICE"])):?>
                 <div class="blck">
                     <!-- h 2 class="title-type03" style="font-size: 18px; font-weight: bold"></h 2 -->
-					<span class="title" 
+					<span class="title"
 					style="font: 17px/26px 'ubuntulight', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: bold; display:block; margin:6px 0px 15px 0px;">
 						<?=$arItem["NAME"]?>
 					</span>

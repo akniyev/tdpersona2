@@ -8,15 +8,6 @@ function JCSmartFilter(ajaxURL){
 }
 
 JCSmartFilter.prototype.keyup = function(input){
-
-  //debugger;
-  //alert($(input).attr("class"));
-  //alert($(input).attr("class", "new_value"));
-
-  //if (input.value != input.defaultValue) {
-  //  alert(input.value + " != " + input.defaultValue);
-  //}
-
   showLoader();
   if (this.timer)
     clearTimeout(this.timer);
@@ -51,20 +42,24 @@ JCSmartFilter.prototype.reload = function(input){
 }
 
 JCSmartFilter.prototype.reset = function(result) {
-  debugger;
   var newResult = result.split('<!--JSON-->');
   newResult = $.parseJSON(newResult[1]);
   var url = BX.util.htmlspecialcharsback(newResult.FILTER_URL);
   location.href = url;
 }
 /**
- * Перезагрузка страницы по JSON объекту
- * @param {string} result JSON объект в виде строки
- * @returns {undefined} ничего
+ * РџРµСЂРµР·Р°РіСЂСѓР·РєР° СЃС‚СЂР°РЅРёС†С‹ РїРѕ JSON РѕР±СЉРµРєС‚Сѓ
+ * @param {string} result JSON РѕР±СЉРµРєС‚ РІ РІРёРґРµ СЃС‚СЂРѕРєРё
+ * @returns {undefined} РЅРёС‡РµРіРѕ
  */
 JCSmartFilter.prototype.reloadOnPost = function(result){
   var newResult = result.split('<!--JSON-->');
-  newResult = $.parseJSON(newResult[1]);
+  //TODO: РёСЃРїСЂР°РІРёС‚СЊ
+  var nn = newResult[1].replace(/\t/g, "");
+  newResult = jQuery.parseJSON(nn);
+
+  //newResult = $.parseJSON(newResult[1]);
+
   var count = newResult.ELEMENT_COUNT;
   var url = BX.util.htmlspecialcharsback(newResult.FILTER_URL);
   //if(url.indexOf("item_count") == -1){

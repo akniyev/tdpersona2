@@ -84,7 +84,7 @@ $this->setFrameMode(true);?>
       "CACHE_TIME" => $arParams["CACHE_TIME"],
       "DISPLAY_ELEMENT_COUNT" => "N",
       "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-      "SAVE_IN_SESSION" => "Y",
+      "SAVE_IN_SESSION" => "N",
       "XML_EXPORT" => "Y",
       "SECTION_TITLE" => "NAME",
       "SECTION_DESCRIPTION" => "DESCRIPTION",

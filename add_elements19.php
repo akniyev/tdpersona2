@@ -1,6 +1,12 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
+global $USER;
+if (!($USER -> isAdmin())) {
+    echo "<h1>NOT ADMIN!</h1>";
+    die();
+}
+
 //Очищает выбранный раздел от товаров
 function clear_section ($iblock_id, $section_id) {
     $items_raw = CIBlockElement::GetList(
