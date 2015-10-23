@@ -43,9 +43,6 @@ $main_query->setSelect(array('*'));
 
 $main_query->setFilter(array('=UF_XML_ID' => $arParams['ROW_ID']));
 
-define("LOG_FILENAME", $_SERVER["DOCUMENT_ROOT"]."/log.txt");
-addMessage2Log($arParams);
-
 $result = $main_query->exec();
 $result = new CDBResult($result);
 $row = $result->Fetch();

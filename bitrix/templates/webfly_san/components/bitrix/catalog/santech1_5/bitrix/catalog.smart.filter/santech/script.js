@@ -27,7 +27,6 @@ JCSmartFilter.prototype.click = function(checkbox){
 }
 
 JCSmartFilter.prototype.reload = function(input){
-  debugger;
   this.position = BX.pos(input, true);
   this.form = BX.findParent(input, {'tag': 'form'});
   var values = new Array;
@@ -35,11 +34,23 @@ JCSmartFilter.prototype.reload = function(input){
     values[0] = {name: 'ajax', value: 'y'};
     this.gatherInputsValues(values, BX.findChildren(this.form, {'tag': 'input'}, true));
     window.curFilterinput = input;
-    $.post(this.ajaxURL,values,this.reloadOnPost);
+    $.post(this.ajaxURL,values,function (err) { alert("asdf") });
+
+    //jQuery.ajax({
+    //  type: "POST",
+    //  async: true,
+    //  url: this.ajaxURL,
+    //  data:  values,
+    //  dataType: "json",
+    //  contentType: "application/x-javascript; charset=utf-8",
+    //  success: this.reloadOnPost,
+    //  error: function (err)
+    //  { console.log(err); }
+    //});
     //BX.ajax.loadJSON(this.ajaxURL, this.values2post(values), BX.delegate(this.postHandler, this));
   }
-  $.post(this.ajaxURL,values,function(result) {});
-  location.href = this.ajaxURL;
+  //$.post(this.ajaxURL,values,function(result) {});
+  //location.href = this.ajaxURL;
 }
 
 JCSmartFilter.prototype.reset = function(result) {

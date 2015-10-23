@@ -1,6 +1,10 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
 <?
-$APPLICATION->RestartBuffer();
+
+define("LOG_FILENAME", $_SERVER["DOCUMENT_ROOT"]."/log.txt");
+addMessage2Log($arResult);
+echo "<h2>TEST</h2>";
+//$APPLICATION->RestartBuffer();
 echo "<!--JSON-->";
 unset($arResult["COMBO"]);
 echo str_replace("'",'"',CUtil::PHPToJSObject($arResult, true));
