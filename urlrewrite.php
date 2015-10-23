@@ -13,7 +13,7 @@ $arUrlRewrite = array(
 		"PATH" => "/staff.php",
 	),
 	array(
-		"CONDITION" => "#^/brands/([0-9]+)/#",
+		"CONDITION" => "#^/brands/([0-9a-zA-Z]+)/#",
 		"RULE" => "brand_id=\$1",
 		"ID" => "",
 		"PATH" => "/brands/detail.php",

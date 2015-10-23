@@ -106,6 +106,12 @@ $this->setFrameMode(true);?>
                 } else {
                     $includeInUrl = "yes";
                 }
+                //TODO: исключить по названию свойства
+                if ( $arItem["VALUES"]["MAX"]["VALUE"] < 100) {
+                    $step = 1;
+                } else {
+                    $step = 50;
+                }
                 ?>
                 <div class="slider-holder elem-hold-<?=$key?>" style="border-bottom: 1px solid #b7b7b7">
                     <div class="slide-text">
@@ -121,8 +127,10 @@ $this->setFrameMode(true);?>
                        id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?= $curMax?>"	size="5" includeInUrl="<?=$includeInUrl?>" max_value="<?=$arItem["VALUES"]["MAX"]["VALUE"]?>" onchange="smartFilter.onValueChanged(this);"/>
               </span>
               <span class="text"><?
-                  if ($arItem["NAME"] == "Мощность нагревателя") {
+                  if ($arItem["CODE"] == "HEAT_POWER") {
                       echo "Вт";
+                  } elseif ($arItem["CODE"] == "UNITS") {
+                      echo "U";
                   } else {
                       echo "мм";
                       //GetMessage("WF_MILLIMETERS");
@@ -139,7 +147,7 @@ $this->setFrameMode(true);?>
                             values: [<?=$curMin?>, <?=$curMax?>],
                             min: <?= $arItem["VALUES"]["MIN"]["VALUE"]?>,
                             max: <?= $arItem["VALUES"]["MAX"]["VALUE"]?>,
-                            step:50,
+                            step:<?=$step?>,
                             slide: function(event, ui) {
                                 $('#<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>').val(ui.values[0]);
                                 $('#<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>').val(ui.values[1]);
@@ -187,8 +195,8 @@ $this->setFrameMode(true);?>
     <div style="clear: both;"></div>
     <div class="bx_filter_control_section" style="margin-top: 10px">
         <span class="icon"></span>
-        <input class="bx_filter_search_button btn-input" type="submit" id="set_filter" name="set_filter" value="<?=GetMessage("CT_BCSF_SET_FILTER")?>" style="width:120px;float:left;"/>
-        <input class="bx_filter_search_button btn-input btn-input-gray" type="button" id="del_filter" name="del_filter" value="<?=GetMessage("CT_BCSF_DEL_FILTER")?>" style="width:120px;float:left;margin-left:8px;"
+<!--        <input class="bx_filter_search_button btn-input" type="submit" id="set_filter" name="set_filter" value="--><?//=GetMessage("CT_BCSF_SET_FILTER")?><!--" style="visibility:hidden;width:0px;float:left;""/>-->
+        <input class="bx_filter_search_button btn-input btn-input-gray" type="button" id="del_filter" name="del_filter" value="<?=GetMessage("CT_BCSF_DEL_FILTER")?>" style="width:232px;float:left;margin-left:8px;"
                onclick="reset_filter()">
         <div class="bx_filter_popup_result left" id="modef" <?if(!isset($arResult["ELEMENT_COUNT"])) echo 'style="display:none"';?> style="display: inline-block;">
             <?= GetMessage("CT_BCSF_FILTER_COUNT", array("#ELEMENT_COUNT#" => '<span id="modef_num">'.intval($arResult["ELEMENT_COUNT"]).'</span>'));?>

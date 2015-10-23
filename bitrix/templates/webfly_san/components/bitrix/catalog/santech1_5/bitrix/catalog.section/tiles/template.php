@@ -338,7 +338,7 @@ if (!empty($arResult['ITEMS'])) {
   </script>
   <div id="text-description-page" class="text-description-page">
     <div id="short_text" class="text-description-content box-hide">
-      <h2><?= $arResult["NAME"] ?></h2>
+      <h1><?= $arResult["NAME"] ?></h1>
       <p>
         <?= $arResult["DESCRIPTION"] ?>
       </p>

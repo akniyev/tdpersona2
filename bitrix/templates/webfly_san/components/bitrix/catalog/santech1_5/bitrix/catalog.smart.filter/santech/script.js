@@ -27,7 +27,7 @@ JCSmartFilter.prototype.click = function(checkbox){
 }
 
 JCSmartFilter.prototype.reload = function(input){
-  //debugger;
+  debugger;
   this.position = BX.pos(input, true);
   this.form = BX.findParent(input, {'tag': 'form'});
   var values = new Array;
@@ -54,8 +54,10 @@ JCSmartFilter.prototype.reset = function(result) {
  * @returns {undefined} ничего
  */
 JCSmartFilter.prototype.reloadOnPost = function(result){
+  debugger;
   var newResult = result.split('<!--JSON-->');
   //TODO: исправить
+
   var nn = newResult[1].replace(/\t/g, "");
   newResult = jQuery.parseJSON(nn);
 
@@ -134,14 +136,14 @@ JCSmartFilter.prototype.onValueChanged = function (x) {
     x.setAttribute("includeInUrl", "yes");
     y.setAttribute("includeInUrl", "yes");
   }
-  console.log(current_min_value);
-  console.log(x.value);
-  console.log(current_max_value);
-  console.log(y.value);
-  console.log(x);
-  console.log(y);
-
-  debugger;
+  //console.log(current_min_value);
+  //console.log(x.value);
+  //console.log(current_max_value);
+  //console.log(y.value);
+  //console.log(x);
+  //console.log(y);
+  //
+  //debugger;
 
   this.keyup(x);
 }

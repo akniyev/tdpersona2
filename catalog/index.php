@@ -1,6 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty("title", "Термошкафы ITProm серии VT - лучшие цены");
+$APPLICATION->SetTitle("Всепогодные термошкафы ITProm ");
+$APPLICATION->SetPageProperty("title", "Всепогодные термошкафы ITProm ");
 $filterView = (COption::GetOptionString("main", "wizard_template_id", "eshop_adapt_horizontal", SITE_ID) == "eshop_adapt_vertical" ? "HORIZONTAL" : "VERTICAL");
 ?>
 <div class="wrapper">
@@ -108,9 +109,9 @@ $filterView = (COption::GetOptionString("main", "wizard_template_id", "eshop_ada
 			3 => "",
 		),
 		"INCLUDE_SUBSECTIONS" => "Y",
-		"LIST_META_KEYWORDS" => "-",
-		"LIST_META_DESCRIPTION" => "-",
-		"LIST_BROWSER_TITLE" => "-",
+		"LIST_META_KEYWORDS" => "UF_KEYWORDS",
+		"LIST_META_DESCRIPTION" => "UF_META_DESCRIPTION",
+		"LIST_BROWSER_TITLE" => "UF_BROWSER_TITLE",
 		"LIST_OFFERS_FIELD_CODE" => array(
 			0 => "ID",
 			1 => "CODE",

@@ -44,6 +44,20 @@ $shortText = explode("*MORE*",$arResult["SECTION"]["~DESCRIPTION"]);
 </div>
 */?>
 
+<style>
+	.pheader2 {
+		text-align: left;
+		font-weight: bold;
+		display: block;
+		font-size: 1.5em;
+		margin: 0 0 0 10px;
+		-webkit-margin-before: 0.83em;
+		-webkit-margin-after: 0.83em;
+		-webkit-margin-end: 0px;
+	}
+</style>
+
+
 <?
 if (0 < $arResult["SECTIONS_COUNT"]){?>
 <div class="product-catalog product-catalog03 myProdCat section">
@@ -79,7 +93,9 @@ if (0 < $arResult["SECTIONS_COUNT"]){?>
             </div>
             <div class="block">
               <div class="description">
-                <a href="<?= $arSection['SECTION_PAGE_URL']; ?>" title="<?= $arSection['PICTURE']['TITLE']; ?>" class="section-head"><h2><?=$arSection["NAME"]?></h2></a>
+                <a href="<?= $arSection['SECTION_PAGE_URL']; ?>" title="<?= $arSection['PICTURE']['TITLE']; ?>" class="section-head">
+					<p class="pheader2"><?=$arSection["NAME"]?></p>
+				</a>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ $brandId = $_REQUEST["brand_id"];
 				<div id="content">
 					<div class="c1">
 						<?$APPLICATION->IncludeComponent(
-							"bitrix:highloadblock.view",
+							"intsys:highloadblock.view",
 							"brand",
 							Array(
 								"BLOCK_ID" => "5",
