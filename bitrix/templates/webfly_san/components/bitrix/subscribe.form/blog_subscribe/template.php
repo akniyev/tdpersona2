@@ -11,6 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 ?>
+<noindex>
 <h2 class="title-type04"><?=GetMessage("wf_subscribe")?></h2>
 <form action="<?=$arResult["FORM_ACTION"]?>" class="subscribe-form">
   <?foreach($arResult["RUBRICS"] as $itemID => $itemValue):?>
@@ -23,3 +24,4 @@
     </div>
   </fieldset>
 </form>
+</noindex>

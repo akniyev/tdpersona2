@@ -11,7 +11,11 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+?>
 
+
+
+<?
 if(empty($arResult["BRAND_BLOCKS"])) return;
 foreach ($arResult["BRAND_BLOCKS"] as $blockId => $arBB){
   $brandID = 'brand_'.$arResult['ID'].'_'.$this->randString();

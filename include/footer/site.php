@@ -5,5 +5,5 @@
 </a>
 <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 	<p itemprop="addressLocality">г. Москва</p>
-	<p itemprop="streetAddress">ул. 2-я Хуторская, д. 38</p>
+	<p itemprop="streetAddress">ул. Ибрагимова, д.35, стр. 1, к. 1а</p>
 </div>

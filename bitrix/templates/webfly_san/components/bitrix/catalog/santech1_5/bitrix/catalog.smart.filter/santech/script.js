@@ -34,8 +34,16 @@ JCSmartFilter.prototype.reload = function(input){
     values[0] = {name: 'ajax', value: 'y'};
     this.gatherInputsValues(values, BX.findChildren(this.form, {'tag': 'input'}, true));
     window.curFilterinput = input;
-    $.post(this.ajaxURL,values,function (err) { alert("asdf") });
+    //$.post(this.ajaxURL,values,function (msg) { alert("asdf"); });
 
+    $.ajax({
+      type: 'POST',
+      data: values,
+      url: this.ajaxURL,
+      success: function (msg) { alert("asdf"); },
+      //error: function (msg) { console.log(msg); alert("ERROR"); }
+      error: this.reloadOnPost
+    });
     //jQuery.ajax({
     //  type: "POST",
     //  async: true,
@@ -66,6 +74,7 @@ JCSmartFilter.prototype.reset = function(result) {
  */
 JCSmartFilter.prototype.reloadOnPost = function(result){
   debugger;
+  result = result.responseText;
   var newResult = result.split('<!--JSON-->');
   //TODO: исправить
 
