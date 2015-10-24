@@ -103,7 +103,7 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 						"HEIGHT_SMALL" => $arParams["DETAIL_BRAND_HEIGHT_SMALL"]
 					),
 						$component,
-						array("HIDE_ICONS" => "Y")
+						array("HIDE_ICONS" => "N")
 					);?>
 				<?}?>
 			</div>

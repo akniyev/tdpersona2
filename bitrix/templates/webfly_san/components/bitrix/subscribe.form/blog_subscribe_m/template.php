@@ -13,6 +13,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 ?>
+<noindex>
 <h4><?= GetMessage("wf_subscribe_us")?></h4>
 <form action="<?= $arResult["FORM_ACTION"] ?>" class="subscribe-form subscribe-form-other">
   <?foreach($arResult["RUBRICS"] as $itemID => $itemValue):?>
@@ -25,3 +26,4 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
     </div>
   </fieldset>
 </form>
+</noindex>

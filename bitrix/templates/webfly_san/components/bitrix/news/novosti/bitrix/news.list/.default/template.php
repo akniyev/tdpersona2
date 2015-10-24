@@ -27,7 +27,7 @@
         <div class="visual">
           <a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$arItem["PREVIEW_PICTURE"]["ALT"]?>" /></a>
         </div>
-        <p><?=$arItem["PREVIEW_TEXT"]?> <a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?=GetMessage("WF_NEWS_MORE")?></a></p>
+		<noindex><p><?=$arItem["PREVIEW_TEXT"]?> </p></noindex>
       </div>
       <?$first = false;?>
     <?endforeach;?>

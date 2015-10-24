@@ -202,13 +202,14 @@
 }
 
 
+
 /*mystyles*/
 #content .c1{margin-left:0px !important;}
 #divlefter{width:570px; float:left;}
 #divrighter{width:560px; float:right;}
 div.content-about2,div.content-about2 h1{padding-bottom: 0px !important; margin-bottom: 0px;}
-#divlefter h3,#divlefter h4{ font-family: 'ubuntulight', Arial, Helvetica, sans-serif; }
-#divlefter h3{ color:#333333;	font-size: 20px;}
-#divlefter h4{ color:#1277a5;/*color:#434343;*/	font-size: 18px; font-weight:bold; }
+#divlefter h2,#divlefter p{ font-family: 'ubuntulight', Arial, Helvetica, sans-serif; }
+#divlefter h2{ color:#333333;	font-size: 20px;letter-spacing: 1px;}
+#divlefter p.bx-newslist-title,#divlefter h3.bx-newslist-title{ color:#1277a5;margin-top:0px; font-size: 18px; font-weight:bold; margin-bottom:1.33em;}
 p.back-hopper{width:100%;text-align: center; padding:10px 0px 30px 0px;}
 p.back-hopper a {font-family: 'ubuntulight', Arial, Helvetica, sans-serif; color:#333333;	font-size: 20px; }

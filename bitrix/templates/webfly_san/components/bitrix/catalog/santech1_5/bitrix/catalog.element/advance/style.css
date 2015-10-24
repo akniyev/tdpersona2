@@ -143,7 +143,9 @@
 	text-align: center;
 }
 
-
+.description-list li{
+	margin-bottom: 2%;
+}
 
 
 
@@ -991,8 +993,4 @@
 ul.description-list  {
 	width: 900px !important;    line-height: 18pt !important;
     font-size: 14pt !important; 
-}
-
-.description-list li{
-	margin-bottom: 2%;
 }

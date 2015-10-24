@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);?>
 <?CJSCore::Init(array("fx"));?>
-<!--h2><?= GetMessage("CT_BCSF_FILTER_TITLE")?></h2-->
+<!--h 2><?= GetMessage("CT_BCSF_FILTER_TITLE")?></h 2-->
 <form name="<?= $arResult["FILTER_NAME"]."_form"?>" action="<?= $arResult["FORM_ACTION"]?>" method="get" class="smartfilter choise-form">
   <fieldset>
   <?foreach($arResult["HIDDEN"] as $arItem):?>
@@ -35,17 +35,17 @@ $this->setFrameMode(true);?>
         <div class="slider-holder">
           <div class="slide-text">
             <span class="title"><?=$arItem["NAME"]?></span>
-            <span class="num-hold"><?=GetMessage("CT_BCSF_FILTER_FROM")?>&nbsp;
+            <span class="num-hold"><?=GetMessage("CT_BCSF_FILTER_FROM")?> 
               <span id="from" class="num">
                 <input class="min-price" type="text" name="<?= $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
                        id="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"	value="<?= $curMin?>" size="5" onchange="smartFilter.keyup(this);"/>
-              </span>&nbsp;
-              <span class="text"><?=GetMessage("CT_BCSF_FILTER_TO")?>&nbsp;</span>
+              </span> 
+              <span class="text"><?=GetMessage("CT_BCSF_FILTER_TO")?> </span>
               <span id="to" class="num">
                 <input class="max-price" type="text" name="<?= $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
                   id="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"	value="<?= $curMax?>"	size="5" onchange="smartFilter.keyup(this);"/>
               </span>
-              <span class="rouble">&#8399;</span>
+              <span class="rouble">⃏</span>
             </span>
           </div>
           <div id="slider"></div>
@@ -123,7 +123,8 @@ $this->setFrameMode(true);?>
         </script>
       <?elseif(!empty($arItem["VALUES"]) && !isset($arItem["PRICE"])):?>
       <div class="blck">
-        <h2 class="title-type03"><?=$arItem["NAME"]?></h2>
+        <!--h 2 class="title-type03"><?=$arItem["NAME"]?></h 2-->
+		<span class="title" style="font-size: 18px; font-weight: bold"><?=$arItem["NAME"]?></span>
         <div class="hold">
           <?
           $optCount = count($arItem["VALUES"]);

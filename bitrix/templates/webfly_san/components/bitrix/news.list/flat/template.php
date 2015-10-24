@@ -117,16 +117,19 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 			<?endif;?>
 		<?endif;?>
 		<?if($arParams["DISPLAY_NAME"]!="N" && $arItem["NAME"]):?>
-			<h3 class="bx-newslist-title">
+			<h2 class="bx-newslist-title">
 				<?if(!$arParams["HIDE_LINK_WHEN_NO_DETAIL"] || ($arItem["DETAIL_TEXT"] && $arResult["USER_HAVE_ACCESS"])):?>
 					<a href="<?echo $arItem["DETAIL_PAGE_URL"]?>"><?echo $arItem["NAME"]?></a>
 				<?else:?>
 					<?echo $arItem["NAME"]?>
 				<?endif;?>
-			</h3>
-			<h4 class="bx-newslist-title">
+			</h2>
+			<h3 class="bx-newslist-title">
 				<?echo	$arItem["DISPLAY_PROPERTIES"]["rank"]["DISPLAY_VALUE"] ?>
-			</h4>
+			</h3>
+			<p class="bx-newslist-title">
+				<?echo	$arItem["DISPLAY_PROPERTIES"]["mail"]["DISPLAY_VALUE"] ?>
+			</p>
 
 		<?endif;?>
 		<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arItem["PREVIEW_TEXT"]):?>

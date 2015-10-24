@@ -81,7 +81,9 @@ $this->setFrameMode(true);
 );?>
 	</div>
 </div>
-<p class="back-hopper"><a href="<?=$arResult["FOLDER"].$arResult["URL_TEMPLATES"]["news"]?>"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
+<noindex>
+	<p class="back-hopper"><a rel="nofollow" href="<?=$arResult["FOLDER"].$arResult["URL_TEMPLATES"]["news"]?>"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
+</noindex>
 <?if($arParams["USE_CATEGORIES"]=="Y" && $ElementID):
 	global $arCategoryFilter;
 	$obCache = new CPHPCache;

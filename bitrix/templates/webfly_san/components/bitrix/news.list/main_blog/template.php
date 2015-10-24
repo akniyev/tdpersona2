@@ -13,7 +13,7 @@
 $this->setFrameMode(true);?>
 <div class="block-type01">
   <div class="heading-blog">
-    <p class="main-h2-title-type01"><?=GetMessage("WF_COMPANY_BLOG")?></p>
+	  <p class="main-h2-title-type01">Блог ITProm<?/*=GetMessage("WF_COMPANY_BLOG")*/?></p>
     <a href="<?=SITE_DIR?>blog/" class="heading-link"><?=GetMessage("WF_READ_BLOG")?></a> </div>
     <ul class="blog-list">
 <?foreach($arResult["ITEMS"] as $arItem):

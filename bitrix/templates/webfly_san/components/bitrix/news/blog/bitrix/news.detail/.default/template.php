@@ -1,6 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <div class="content-blog">
-  <h1><a href="<?=$arResult["DETAIL_PAGE_URL"]?>"><?=$arResult["NAME"]?></a></h1>
+  <h1><?=$arResult["NAME"]?></h1>
   <div class="block">
     <div class="heading-views">
       <span class="date"><?=$arResult["DATE_ACTIVE_FROM"]?></span>
@@ -17,11 +17,13 @@
       <span class="views-type02">0</span>
     </div>
     <div class="visual">
-      <a href="<?=$arResult["DETAIL_PAGE_URL"]?>"><img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>" /></a>
+      <img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>" />
     </div>
     <div><?=$arResult["~DETAIL_TEXT"]?></div>
-	  <br/><p><a href="<?=$arResult["LIST_PAGE_URL"]?>" class="btn-input btn-input-gray" style="width: 180px;height:35px;"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
-    <div class="comments-block">
+		<noindex>
+			<br/><p><a rel="nofollow" href="<?=$arResult["LIST_PAGE_URL"]?>" class="btn-input btn-input-gray" style="width: 180px;height:35px;"><?=GetMessage("T_NEWS_DETAIL_BACK")?></a></p>
+	  </noindex>
+	<div class="comments-block">
       <?$APPLICATION->IncludeComponent("bitrix:main.include", "", Array("AREA_FILE_SHOW" => "file", "PATH" => SITE_DIR."include/hc_widget.php"));?>
     </div>
   </div>

@@ -27,7 +27,7 @@
 	width: auto;
 	max-width: 100%;
 	height: auto;
-	max-height: 100%
+	max-height: 380px;
 }
 .bx-newslist-video {
 	display: block;
@@ -195,7 +195,8 @@
 	margin-bottom: 5px;
 }
 /*my styles*/
-h3.bx-newslist-title{text-align: center;padding-bottom:0px;}
-h4.bx-newslist-title{text-align: center;color:#82868d;font-size:16px;}
+h2.bx-newslist-title{text-align: center;padding-bottom:0px;}
+h3.bx-newslist-title,p.bx-newslist-title{text-align: center;color:#777777;font-size:16px;}
+h3.bx-newslist-title{color:#82868d;padding-bottom:0px;}
 div.bx-newslist-content{text-align:justify}
 div.staffspacer{width:100%;height:100px;}

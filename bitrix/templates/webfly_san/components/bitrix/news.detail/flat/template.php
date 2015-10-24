@@ -16,6 +16,8 @@ $this->addExternalCss("/bitrix/css/main/font-awesome.css");
 $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css');
 CUtil::InitJSCore(array('fx'));
 ?>
+
+
 <div class="bx-newsdetail">
 	<div class="bx-newsdetail-block" id="<?echo $this->GetEditAreaId($arResult['ID'])?>">
 
@@ -76,11 +78,17 @@ CUtil::InitJSCore(array('fx'));
 
 		<div id="divlefter">
 			<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
-				<h3 class="bx-newsdetail-title"><?=$arResult["NAME"]?></h3>
-				<h4 class="bx-newslist-title">
+				<h2 class="bx-newsdetail-title"><?=$arResult["NAME"]?></h2>
+				<h3 class="bx-newslist-title">
 					<?echo	$arResult["DISPLAY_PROPERTIES"]["rank"]["DISPLAY_VALUE"] ?>
-				</h4>
+<?= var_dump($arParams);?>
+				</h3>
+				<p class="bx-newslist-title">
+					<?echo	$arResult["DISPLAY_PROPERTIES"]["mail"]["DISPLAY_VALUE"] ?>
+<?= var_dump($arResult);?>
+				</p>
 			<?endif;?>
+
 
 			<div class="bx-newsdetail-content">
 				<?if($arResult["NAV_RESULT"]):?>
