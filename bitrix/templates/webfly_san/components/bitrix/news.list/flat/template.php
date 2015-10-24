@@ -133,10 +133,10 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 			</h2>
 			<h3 class="bx-newslist-title">
 				<?echo	$arItem["DISPLAY_PROPERTIES"]["rank"]["DISPLAY_VALUE"] ?>
-			</h3>
-			<p class="bx-newslist-title">
+			</h3><br/>
+			<?/*<p class="bx-newslist-title">
 				<?echo	$arItem["DISPLAY_PROPERTIES"]["mail"]["DISPLAY_VALUE"] ?>
-			</p>
+			</p> */?>
 
 		<?endif;?>
 		<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arItem["PREVIEW_TEXT"]):?>
