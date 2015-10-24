@@ -15,10 +15,17 @@ $this->addExternalCss("/bitrix/css/main/bootstrap.css");
 $this->addExternalCss("/bitrix/css/main/font-awesome.css");
 $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css');
 ?>
+
+
+
+
 <div class="bx-newslist">
 <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	<?=$arResult["NAV_STRING"]?><br />
 <?endif;?>
+
+
+	
 <div class="row">
 <?foreach($arResult["ITEMS"] as $arItem):?>
 	<?

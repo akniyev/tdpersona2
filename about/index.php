@@ -1,6 +1,9 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
-$APPLICATION->SetTitle("Компания");
+$APPLICATION->SetPageProperty("description", "Доставка термошкафов ITProm по Москве и по всей России в течении 5 дней.");
+$APPLICATION->SetPageProperty("keywords", "доставка термошкафов, доставка термошкафов  ITProm, доставка антивандальных термошкафов, доставка телекоммуникационных шкафов");
+$APPLICATION->SetPageProperty("title", "Доставка термошкафов ITProm");
+$APPLICATION->SetTitle("Доставка термошкафов ITProm");
 ?><div class="wrapper">
 	<div class="container">
 		<div class="container-hold">
