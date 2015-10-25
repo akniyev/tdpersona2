@@ -19,7 +19,7 @@ CUtil::InitJSCore(array('fx'));
 
 
 <div class="bx-newsdetail">
-	<div class="bx-newsdetail-block" id="<?echo $this->GetEditAreaId($arResult['ID'])?>">
+	<div class="bx-newsdetail-block" id="<?echo $this->GetEditAreaId($arResult['ID'])?>" style="padding-left: 36px;">
 
 		<div id="divrighter">
 			<?if($arParams["DISPLAY_PICTURE"]!="N"):?>
@@ -79,13 +79,11 @@ CUtil::InitJSCore(array('fx'));
 		<div id="divlefter">
 			<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
 				<h2 class="bx-newsdetail-title"><?=$arResult["NAME"]?></h2>
-				<h3 class="bx-newslist-title">
+				<?/*<h3 class="bx-newslist-title">
 					<?echo	$arResult["DISPLAY_PROPERTIES"]["rank"]["DISPLAY_VALUE"] ?>
-<?= var_dump($arParams);?>
-				</h3>
+				</h3> */?>
 				<p class="bx-newslist-title">
-					<?echo	$arResult["DISPLAY_PROPERTIES"]["mail"]["DISPLAY_VALUE"] ?>
-<?= var_dump($arResult);?>
+					<?=	$arResult["DISPLAY_PROPERTIES"]["mail"]["DISPLAY_VALUE"] ?>
 				</p>
 			<?endif;?>
 
