@@ -38,6 +38,15 @@ if (!empty($arResult['ITEMS'])) {
         $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
           var newd = d.split("<!--RestartBuffer-->");
           $("#wf-product-catalog").find("ul").append(newd[1]);
+          $(function init() {
+            debugger;
+            if ($('input:checkbox').not(".superIgnore").length > 0)
+              var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
+            checkboxStyling('.styledRadio', '.styledLabel');
+            $('.styledLabel').on('click', function(e){
+              checkboxStyling('.styledRadio', '.styledLabel');
+            });
+          });
         });
       }
       if(page == numPages) {
@@ -153,6 +162,7 @@ if (!empty($arResult['ITEMS'])) {
 
             <form class="dop_options" method="post" action="" style="margin-top:10px;">
               <input type="checkbox" id="ch7<?=$key?>" class="srav checkbox" name="my_srav[]" data-count="sravCount" wf-elem-id="<?=$arItem["ID"]?>" value="<?=$arItem["~COMPARE_URL"]?>" />
+<!--              <span class="checkboxArea"></span>-->
               <label for="ch7<?=$key?>" class="myChb hitro-label"><?=GetMessage("CT_BCS_TPL_MESS_BTN_COMPARE")?></label>
               <?
               if($USER->IsAuthorized()){

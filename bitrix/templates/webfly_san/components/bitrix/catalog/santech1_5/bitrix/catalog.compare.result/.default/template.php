@@ -1,6 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <div class="catalog-compare-result">
-<h1 style="padding: 30px 0 0 30px; margin-bottom: 0;">Сравнение товаров</h1>
+<h1 style="padding: 30px 0 0 30px; margin-bottom: 0;">РЎСЂР°РІРЅРµРЅРёРµ С‚РѕРІР°СЂРѕРІ</h1>
 <a name="compare_table"></a>
 	<?/*?><!--noindex><p>
 	<?if($arResult["DIFFERENT"]):
