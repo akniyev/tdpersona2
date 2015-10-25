@@ -79,9 +79,9 @@ CUtil::InitJSCore(array('fx'));
 		<div id="divlefter">
 			<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
 				<h2 class="bx-newsdetail-title"><?=$arResult["NAME"]?></h2>
-				<h3 class="bx-newslist-title">
+				<?/*<h3 class="bx-newslist-title">
 					<?echo	$arResult["DISPLAY_PROPERTIES"]["rank"]["DISPLAY_VALUE"] ?>
-				</h3>
+				</h3> */?>
 				<p class="bx-newslist-title">
 					<?=	$arResult["DISPLAY_PROPERTIES"]["mail"]["DISPLAY_VALUE"] ?>
 				</p>
