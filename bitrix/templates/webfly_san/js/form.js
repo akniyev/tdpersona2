@@ -1,5 +1,15 @@
+//function init() {
+//  if ( $('input:checkbox').not(".superIgnore").length > 0)
+//    var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
+//  checkboxStyling('.styledRadio', '.styledLabel');
+//  $('.styledLabel').on('click', function(e){
+//    checkboxStyling('.styledRadio', '.styledLabel');
+//  });
+//}
+
+
 $(function init() {
-  if ($('input:checkbox').not(".superIgnore").length > 0)
+  if ( $('input:checkbox').not(".superIgnore").length > 0)
     var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
   checkboxStyling('.styledRadio', '.styledLabel');
   $('.styledLabel').on('click', function(e){
@@ -7,6 +17,7 @@ $(function init() {
   });
 });
 $.fn.checkbox = function (o) {
+  debugger;
   var callMethod = $.fn.checkbox.method;
   if (typeof o == "string" && o in $.fn.checkbox.method) {
     var checkbox = $(this);
@@ -27,9 +38,11 @@ $.fn.checkbox = function (o) {
         }
       },
       "check": function (checkbox) {
+        console.log("check");
         checkbox.trigger('change.customForms', ['check']);
       },
       "uncheck": function (checkbox) {
+        console.log("uncheck");
         checkbox.trigger('change.customForms', ['uncheck']);
       },
       "toggle": function (checkbox) {

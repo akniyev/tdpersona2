@@ -35,18 +35,22 @@ if (!empty($arResult['ITEMS'])) {
       var url = "<?$APPLICATION->GetCurDir();?>";
       page++;
       if(page <= numPages){
+          debugger;
         $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
+
           var newd = d.split("<!--RestartBuffer-->");
           $("#wf-product-catalog").find("ul").append(newd[1]);
-          $(function init() {
-            debugger;
+            (function () {
+//            return;
+//                debugger;
             if ($('input:checkbox').not(".superIgnore").length > 0)
               var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
             checkboxStyling('.styledRadio', '.styledLabel');
             $('.styledLabel').on('click', function(e){
               checkboxStyling('.styledRadio', '.styledLabel');
             });
-          });
+          })();
+
         });
       }
       if(page == numPages) {
@@ -93,7 +97,10 @@ if (!empty($arResult['ITEMS'])) {
       ?>
       <!--RestartBuffer-->
       <?
+      $PAGE_NUM = $_GET["PAGEN_1"];
+
       foreach($arResult["ITEMS"] as $key => $arItem):
+          $key = $key + $PAGE_NUM*12;
         $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], $strElementEdit);
         $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], $strElementDelete, $arElementDeleteParams);
         $strMainID = $this->GetEditAreaId($arItem['ID']);
