@@ -37,20 +37,9 @@ if (!empty($arResult['ITEMS'])) {
       if(page <= numPages){
           debugger;
         $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
-
           var newd = d.split("<!--RestartBuffer-->");
           $("#wf-product-catalog").find("ul").append(newd[1]);
-            (function () {
-//            return;
-//                debugger;
-            if ($('input:checkbox').not(".superIgnore").length > 0)
-              var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
-            checkboxStyling('.styledRadio', '.styledLabel');
-            $('.styledLabel').on('click', function(e){
-              checkboxStyling('.styledRadio', '.styledLabel');
-            });
-          })();
-
+          init();
         });
       }
       if(page == numPages) {

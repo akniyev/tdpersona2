@@ -1,11 +1,12 @@
-//function init() {
-//  if ( $('input:checkbox').not(".superIgnore").length > 0)
-//    var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
-//  checkboxStyling('.styledRadio', '.styledLabel');
-//  $('.styledLabel').on('click', function(e){
-//    checkboxStyling('.styledRadio', '.styledLabel');
-//  });
-//}
+function init() {
+  console.log("init invoked!");
+  if ( $('input:checkbox').not(".superIgnore").length > 0)
+    var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
+  checkboxStyling('.styledRadio', '.styledLabel');
+  $('.styledLabel').on('click', function(e){
+    checkboxStyling('.styledRadio', '.styledLabel');
+  });
+}
 
 
 $(function init() {
@@ -17,7 +18,6 @@ $(function init() {
   });
 });
 $.fn.checkbox = function (o) {
-  debugger;
   var callMethod = $.fn.checkbox.method;
   if (typeof o == "string" && o in $.fn.checkbox.method) {
     var checkbox = $(this);
