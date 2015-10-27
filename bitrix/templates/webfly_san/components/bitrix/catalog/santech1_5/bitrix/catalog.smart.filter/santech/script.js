@@ -73,7 +73,7 @@ JCSmartFilter.prototype.reset = function(result) {
  * @returns {undefined} ничего
  */
 JCSmartFilter.prototype.reloadOnPost = function(result){
-  debugger;
+  //debugger;
   result = result.responseText;
   var newResult = result.split('<!--JSON-->');
   //TODO: исправить

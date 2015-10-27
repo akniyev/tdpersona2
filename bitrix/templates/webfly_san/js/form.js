@@ -38,11 +38,11 @@ $.fn.checkbox = function (o) {
         }
       },
       "check": function (checkbox) {
-        console.log("check");
+        console.log("check0");
         checkbox.trigger('change.customForms', ['check']);
       },
       "uncheck": function (checkbox) {
-        console.log("uncheck");
+        console.log("uncheck0");
         checkbox.trigger('change.customForms', ['uncheck']);
       },
       "toggle": function (checkbox) {
@@ -116,6 +116,9 @@ $.fn.checkbox = function (o) {
         e.preventDefault();
       });
       function check() {
+        //console.log("check");
+        //console.log(this);
+
         checkbox.attr('checked', true);
         localCustomCheckbox.addClass(checkboxClass);
         if (checkbox.data('label')) {
@@ -123,6 +126,8 @@ $.fn.checkbox = function (o) {
         }
       }
       function uncheck() {
+        //console.log("uncheck");
+
         checkbox.attr('checked', false);
         localCustomCheckbox.removeClass(checkboxClass);
         if (checkbox.data('label')) {

@@ -303,9 +303,11 @@ $(function () {
     event.preventDefault();
   });
   /* Favorite Add & Sravnenie */
-  $(".srav, .fav").on('change', function () {
+
+  $(".srav, .fav").not(".added").on('change', function () {
     countAnimate(this);
   });
+  $(".srav, .fav").addClass("added");
 
   if ($('.myProdCat').length) {
     $(window).on('load', function () {
@@ -664,6 +666,7 @@ function checkFilterOpt() {
  * Анимация "полета"
  */
 function countAnimate(elem) {
+  //console.log("countAnimate");
   var target = $(elem).data("count"),
           targetNewClass = target + "--active";
   target = "." + target;

@@ -34,12 +34,16 @@ if (!empty($arResult['ITEMS'])) {
     $(".btn-show").on("click",function(){
       var url = "<?$APPLICATION->GetCurDir();?>";
       page++;
+
       if(page <= numPages){
-          debugger;
         $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
           var newd = d.split("<!--RestartBuffer-->");
           $("#wf-product-catalog").find("ul").append(newd[1]);
           init();
+          $(".srav, .fav").not(".added").on('change', function () {
+              countAnimate(this);
+          });
+          $(".srav, .fav").addClass("added");
         });
       }
       if(page == numPages) {
