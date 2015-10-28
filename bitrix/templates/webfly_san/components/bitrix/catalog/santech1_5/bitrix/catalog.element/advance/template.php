@@ -286,11 +286,14 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 					<?foreach($arResult["PROPERTIES"] as $key => $arDp):
 						if(in_array($key,$excludeProps)) continue;
 						?>
-						<li>
-							<? $tmpVal = $arDp["VALUE"]; if ($tmpVal == "")  $tmpVal = "не задано"; ?>
-							<span class="text-left"><?=$arDp["NAME"]?></span>
-							<span class="text-right"><?=$tmpVal?></span>
-						</li>
+						<? $tmpVal = $arDp["VALUE"]; ?>
+						<? if ($tmpVal != ""): ?>
+							<li>
+								<?/* $tmpVal = $arDp["VALUE"]; if ($tmpVal == "")  $tmpVal = "не задано"; */?>
+									<span class="text-left"><?=$arDp["NAME"]?></span>
+									<span class="text-right"><?=$tmpVal?></span>
+							</li>
+						<?endif;?>
 					<?endforeach?>
 				</ul>
 			</div>
