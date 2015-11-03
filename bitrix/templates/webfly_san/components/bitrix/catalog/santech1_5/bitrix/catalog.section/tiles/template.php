@@ -12,6 +12,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+//test_dump($arResult);
 $this->setFrameMode(true);
 $Fav = new wfHighLoadBlock(3);
   $favList = $Fav->elemGet();
@@ -30,28 +31,33 @@ if (!empty($arResult['ITEMS'])) {
 <script type="text/javascript">
   var page = 1;
   var numPages = Math.ceil(<?=$countAll?>/<?=$arParams["PAGE_ELEMENT_COUNT"]?>);
-  $(function(){
-    $(".btn-show").on("click",function(){
-      var url = "<?$APPLICATION->GetCurDir();?>";
-      page++;
+  $(show_more_callback);
+  function show_more_callback(){
+      $(".btn-show").on("click",function(){
+          var url = "<?$APPLICATION->GetCurDir();?>";
+          page++;
 
-      if(page <= numPages){
-        $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
-          var newd = d.split("<!--RestartBuffer-->");
-          $("#wf-product-catalog").find("ul").append(newd[1]);
-          init();
-          $(".srav, .fav").not(".added").on('change', function () {
-              countAnimate(this);
-          });
-          $(".srav, .fav").addClass("added");
-        });
-      }
-      if(page == numPages) {
-        $(".btn-show, .btn-show-all").hide();
-      }
-      return false;
-    });
-  });
+          if(page <= numPages){
+              $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
+                  var newd = d.split("<!--RestartBuffer-->");
+                  $("#wf-product-catalog").find("ul").append(newd[1]);
+                  init();
+                  checkbox_change_events($);
+//                  $('.btn-show').click(function () {
+//                      debugger;
+//                      $(this).closest('.btn-row').prev().slideDown(500);
+//                      $(this).fadeOut(250);
+//                      return false;
+//                  });
+                  //show_more_callback();
+              });
+          }
+          if(page == numPages) {
+              $(".btn-show, .btn-show-all").hide();
+          }
+          return false;
+      });
+  }
 </script>
 <?
   CJSCore::Init(array("popup"));
@@ -91,6 +97,7 @@ if (!empty($arResult['ITEMS'])) {
       <!--RestartBuffer-->
       <?
       $PAGE_NUM = $_GET["PAGEN_1"];
+
 
       foreach($arResult["ITEMS"] as $key => $arItem):
           $key = $key + $PAGE_NUM*12;
@@ -159,9 +166,21 @@ if (!empty($arResult['ITEMS'])) {
                   <?endif;?>
               </div>
             </div>
-
             <form class="dop_options" method="post" action="" style="margin-top:10px;">
-              <input type="checkbox" id="ch7<?=$key?>" class="srav checkbox" name="my_srav[]" data-count="sravCount" wf-elem-id="<?=$arItem["ID"]?>" value="<?=$arItem["~COMPARE_URL"]?>" />
+<!--                TODO: delete ajaxw from url with special function   -->
+                <?
+                $compareUrl = str_replace("ajaxw=Y&", "", $arItem["~COMPARE_URL"]);
+                $compareUrl = str_replace("ajaxw=Y", "", $compareUrl);
+                ?>
+
+                <?
+                    if ($_SESSION["CATALOG_COMPARE_LIST"][4]["ITEMS"][$arItem["ID"]] != null)
+                        $checked = "checked";
+                    else
+                        $checked = "";
+                ?>
+
+              <input type="checkbox" id="ch7<?=$key?>" class="srav checkbox" name="my_srav[]" data-count="sravCount" <?=$checked?> wf-elem-id="<?=$arItem["ID"]?>" value="<?=$compareUrl?>" />
 <!--              <span class="checkboxArea"></span>-->
               <label for="ch7<?=$key?>" class="myChb hitro-label"><?=GetMessage("CT_BCS_TPL_MESS_BTN_COMPARE")?></label>
               <?
@@ -181,74 +200,14 @@ if (!empty($arResult['ITEMS'])) {
               <input type="checkbox" id="ch8<?=$key?>" class="fav checkbox" name="my_fav[]" data-count="favCount" value="<?=$favVal?>" elem-val="<?=$arItem["ID"]?>" <?=$checked?> <?=$disabled?>/>
               <label for="ch8<?=$key?>" class="myChb hitro-label"><?=GetMessage("WF_FAVORITES")?></label>
             </form>
-            <?
-
-            $arJSParams = array(
-                'PRODUCT_TYPE' => $arItem['CATALOG_TYPE'],
-                'SHOW_QUANTITY' => $arParams['USE_PRODUCT_QUANTITY'],
-                'SHOW_ADD_BASKET_BTN' => false,
-                'SHOW_BUY_BTN' => true,
-                'SHOW_ABSENT' => true,
-                'SHOW_SKU_PROPS' => $arItem['OFFERS_PROPS_DISPLAY'],
-                'SECOND_PICT' => false,
-                'SHOW_OLD_PRICE' => ('Y' == $arParams['SHOW_OLD_PRICE']),
-                'SHOW_DISCOUNT_PERCENT' => ('Y' == $arParams['SHOW_DISCOUNT_PERCENT']),
-                'DEFAULT_PICTURE' => array(
-                    'PICTURE' => $arItem['PRODUCT_PREVIEW'],
-                    'PICTURE_SECOND' => $arItem['PRODUCT_PREVIEW_SECOND']
-                ),
-                'VISUAL' => array(
-                    'ID' => $arItemIDs['ID'],
-                    'PICT_ID' => $arItemIDs['PICT'],
-                    'SECOND_PICT_ID' => $arItemIDs['SECOND_PICT'],
-                    'QUANTITY_ID' => $arItemIDs['QUANTITY'],
-                    'QUANTITY_UP_ID' => $arItemIDs['QUANTITY_UP'],
-                    'QUANTITY_DOWN_ID' => $arItemIDs['QUANTITY_DOWN'],
-                    'QUANTITY_MEASURE' => $arItemIDs['QUANTITY_MEASURE'],
-                    'PRICE_ID' => $arItemIDs['PRICE'],
-                    'TREE_ID' => $arItemIDs['PROP_DIV'],
-                    'TREE_ITEM_ID' => $arItemIDs['PROP'],
-                    'BUY_ID' => $arItemIDs['BUY_LINK'],
-                    'ADD_BASKET_ID' => $arItemIDs['ADD_BASKET_ID'],
-                    'DSC_PERC' => $arItemIDs['DSC_PERC'],
-                    'SECOND_DSC_PERC' => $arItemIDs['SECOND_DSC_PERC'],
-                    'DISPLAY_PROP_DIV' => $arItemIDs['DISPLAY_PROP_DIV'],
-                ),
-                'BASKET' => array(
-                    'QUANTITY' => $arParams['PRODUCT_QUANTITY_VARIABLE'],
-                    'PROPS' => $arParams['PRODUCT_PROPS_VARIABLE'],
-                    'SKU_PROPS' => $arItem['OFFERS_PROP_CODES']
-                ),
-                'PRODUCT' => array(
-                    'ID' => $arItem['ID'],
-                    'NAME' => $arItem['~NAME'],
-                    'CAN_BUY' => $arItem["CAN_BUY"],
-                    'ADD_URL' => $arItem['~ADD_URL'],
-                    'PICT' => $arItem['PREVIEW_PICTURE'],
-                ),
-                'OFFERS' => $arItem['JS_OFFERS'],
-                'OFFER_SELECTED' => $arItem['OFFERS_SELECTED'],
-                'TREE_PROPS' => $arSkuProps,
-                'LAST_ELEMENT' => $arItem['LAST_ELEMENT']
-            );
-            ?>
-            <script type="text/javascript">
-              <?if($isOffers):?>
-                $("#<?=$arItemIDs['BUY_LINK']?>").on("click",function(){
-                  location.href = "<?=$arItem["DETAIL_PAGE_URL"]?>";
-                });
-              <?else:?>
-                var <?= $strObName; ?> = new JCCatalogSection(<?= CUtil::PhpToJSObject($arJSParams, false, true); ?>);
-              <?endif?>
-            </script>
           </div>
         </li>
       <?endforeach?>
-      <!--RestartBuffer-->
-      <?if(isset($_GET["ajaxw"])){
-        die();
-      }
-      ?>
+        <!--RestartBuffer-->
+        <?if(isset($_GET["ajaxw"])){
+            die();
+        }
+        ?>
     </ul>
   </div>
   <?if(!isset($_GET["SHOWALL_1"]) and ($countAll > $arParams["PAGE_ELEMENT_COUNT"])):?>
@@ -259,6 +218,7 @@ if (!empty($arResult['ITEMS'])) {
         }?>
         <a href="#" class="btn-show"><?=GetMessage("WF_PRODUCT_LIST_SHOW_MORE",array("#WARES_ONPAGE#"=>$arParams["PAGE_ELEMENT_COUNT"]))?></a>
       </div>
+
       <div class="row">
         <a href="<?=$APPLICATION->GetCurDir();?>?SHOWALL_1=1" class="btn-show-all">
           <?=GetMessage("WF_PRODUCT_LIST_SHOW_ALL",array("#WARES_COUNT#"=>$countAll))?>
@@ -266,58 +226,58 @@ if (!empty($arResult['ITEMS'])) {
       </div>
     </div>
   <?endif;?>
+
+    <!--RestartBuffer-->
+    <?if(isset($_GET["ajaxw"])){
+        die();
+    }
+    ?>
   <script type="text/javascript">
-    BX.message({
-      MESS_BTN_BUY: '<?= ('' != $arParams['MESS_BTN_BUY'] ? CUtil::JSEscape($arParams['MESS_BTN_BUY']) : GetMessageJS('CT_BCS_TPL_MESS_BTN_BUY')); ?>',
-      MESS_BTN_ADD_TO_BASKET: '<?= ('' != $arParams['MESS_BTN_ADD_TO_BASKET'] ? CUtil::JSEscape($arParams['MESS_BTN_ADD_TO_BASKET']) : GetMessageJS('CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET')); ?>',
-      MESS_NOT_AVAILABLE: '<?= ('' != $arParams['MESS_NOT_AVAILABLE'] ? CUtil::JSEscape($arParams['MESS_NOT_AVAILABLE']) : GetMessageJS('CT_BCS_TPL_MESS_PRODUCT_NOT_AVAILABLE')); ?>',
-      BTN_MESSAGE_BASKET_REDIRECT: '<?= GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_BASKET_REDIRECT'); ?>',
-      BASKET_URL: '<?= $arParams["BASKET_URL"]; ?>',
-      ADD_TO_BASKET_OK: '<?= GetMessageJS('ADD_TO_BASKET_OK'); ?>',
-      TITLE_ERROR: '<?= GetMessageJS('CT_BCS_CATALOG_TITLE_ERROR') ?>',
-      TITLE_BASKET_PROPS: '<?= GetMessageJS('CT_BCS_CATALOG_TITLE_BASKET_PROPS') ?>',
-      TITLE_SUCCESSFUL: '<?= GetMessageJS('ADD_TO_BASKET_OK'); ?>',
-      BASKET_UNKNOWN_ERROR: '<?= GetMessageJS('CT_BCS_CATALOG_BASKET_UNKNOWN_ERROR') ?>',
-      BTN_MESSAGE_SEND_PROPS: '<?= GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_SEND_PROPS'); ?>',
-      BTN_MESSAGE_CLOSE: '<?= GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_CLOSE') ?>'
-    });
-    $(function(){
-      $("body").on("change",".srav",function(){
-        var url = "";
-        if($(this).is(":checked")){
-          url = $(this).val();
-          $.post(url,{},function(d){});
-        }else{
-          var id = $(this).attr("wf-elem-id");
-          url = "/catalog/compare/";
-          var requestData = {action:"DELETE_FROM_COMPARE_RESULT",IBLOCK_ID:<?=$arParams["IBLOCK_ID"]?>,ID:[id]};
-          $.get(url, requestData,function(d){console.log(d);});
-        }
-      });
-      $("body").on("change",".fav",function(){
-          var url = "<?=SITE_TEMPLATE_PATH?>/ajax/favorites.php";
-          var requestData = {};
-          var elem = $(this).val();
-          var elemVal = $(this).attr("elem-val");
-          var that = $(this);
-          if($(this).is(":checked")){
-            requestData = {elemId:elem, action:"add"};
-            $.post(url,requestData,function(d){
-              that.val(d);
-            });
-          }else{
-            requestData = {elemId:elem, action:"delete"};
-            $.post(url,requestData,function(d){
-              that.val(elemVal);
-              subsFav();
-            });
-          }
-      });
-      $("body").on("click",".dop_options .myChb",function(){
-        var fora = $(this).attr("for");
-        if($("#"+fora).is(":disabled")) alert("<?=GetMessage("WF_AUTHORIZE")?>");
-      });
-    });
+    $(checkbox_change_events);
+    function checkbox_change_events($){
+        $(".srav").not(".added").on("change", function(){
+            var url = "";
+            var _this = this;
+            callback = function (result) {
+                countAnimate(_this);
+            }
+            if($(this).is(":checked")){
+                url = $(this).val();
+                $.post(url,{},callback);
+            }else{
+                var id = $(this).attr("wf-elem-id");
+                url = "/catalog/compare.php";
+                var requestData = {action:"DELETE_FROM_COMPARE_RESULT",IBLOCK_ID:<?=$arParams["IBLOCK_ID"]?>,ID:[id]};
+                $.post(url, requestData,callback);
+            }
+        });
+        $(".fav").not(".added").on("change",function(){
+            var _this = this;
+            var url = "<?=SITE_TEMPLATE_PATH?>/ajax/favorites.php";
+            var requestData = {};
+            var elem = $(this).val();
+            var elemVal = $(this).attr("elem-val");
+            var that = $(this);
+            if($(this).is(":checked")){
+                requestData = {elemId:elem, action:"add"};
+                $.post(url,requestData,function(d){
+                    that.val(d);
+                    countAnimate(_this);
+                });
+            }else{
+                requestData = {elemId:elem, action:"delete"};
+                $.post(url,requestData,function(d){
+                    that.val(elemVal);
+                    subsFav();
+                });
+            }
+        });
+        $("body").on("click",".dop_options .myChb",function(){
+            var fora = $(this).attr("for");
+            if($("#"+fora).is(":disabled")) alert("<?=GetMessage("WF_AUTHORIZE")?>");
+        });
+        $(".srav, .fav").addClass("added");
+    }
   </script>
 
 

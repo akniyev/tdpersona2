@@ -199,6 +199,8 @@ $(function () {
 
 
   $('.btn-show').click(function () {
+    return false;
+    debugger;
     $(this).closest('.btn-row').prev().slideDown(500);
     $(this).fadeOut(250);
     return false;
@@ -304,10 +306,10 @@ $(function () {
   });
   /* Favorite Add & Sravnenie */
 
-  $(".srav, .fav").not(".added").on('change', function () {
+  /*$(".srav, .fav").not(".added").on('change', function () {
     countAnimate(this);
   });
-  $(".srav, .fav").addClass("added");
+  $(".srav, .fav").addClass("added");*/
 
   if ($('.myProdCat').length) {
     $(window).on('load', function () {
@@ -666,27 +668,36 @@ function checkFilterOpt() {
  * Анимация "полета"
  */
 function countAnimate(elem) {
-  //console.log("countAnimate");
-  var target = $(elem).data("count"),
-          targetNewClass = target + "--active";
+  var target = $(elem).data("count");
+
+  var targetNewClass = target + "--active";
   target = "." + target;
   var coordX = Math.ceil($(target).offset().left), //position of target element
           coordY = Math.ceil($(target).offset().top),
           offsetX = Math.ceil($(elem).parent().find('.myChb').offset().left), //currentPosition
           offsetY = Math.ceil($(elem).parent().find('.myChb').offset().top);
-  if ($(elem).is(':checked')) {
+
     $("#virt_checked").css({"left": offsetX + "px", "top": offsetY + "px"}).show(1).delay(1).queue(function () {
       $("#virt_checked").css({"top": coordY, "left": coordX, 'opacity': 0, 'transform': 'scale(0.3,0.3)'}).delay(500).queue(function () {
         $("#virt_checked").css({"top": 0, "left": 0, 'opacity': 1, 'transform': 'scale(1,1)'}).hide(1);
-        $(target).next('.new').fadeIn(600).delay(1000).fadeOut(400);
+
+
         var count = $(target).text();
-        count++;
-        $(target).text(count).addClass(targetNewClass); //update number of items
+        if ($(elem).is(':checked')) {
+          $(target).next('.new').fadeIn(600).delay(1000).fadeOut(400);
+          count++;
+        }
+        else if (count > 0)
+          count--;
+
+        if (count > 0)
+          $(target).text(count).addClass(targetNewClass); //update number of items
+        else
+          $(target).text(count).removeClass(targetNewClass);
         $(this).dequeue();
       });
       $(this).dequeue();
     });
-  }
 }
 function subsFav(){
   var count = parseInt($(".favCount--active").text());
