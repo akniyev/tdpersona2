@@ -54,7 +54,7 @@
   <?*/?>
 <br />
 <div style="clear:both;"></div>
-<?//wfDump($arResult["ITEMS"])?>
+<?//test_dump($arResult["ITEMS"])?>
 <form action="<?=$APPLICATION->GetCurPage()?>" method="get">
 	<table class="data-table" cellspacing="0" cellpadding="0" border="0">
 		<thead>

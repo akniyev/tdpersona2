@@ -1,6 +1,5 @@
 function init() {
-  console.log("init invoked!");
-  if ( $('input:checkbox').not(".superIgnore").length > 0)
+  if ( $('input:checkbox').not(".su perIgnore").length > 0)
     var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
   checkboxStyling('.styledRadio', '.styledLabel');
   $('.styledLabel').on('click', function(e){
@@ -38,11 +37,9 @@ $.fn.checkbox = function (o) {
         }
       },
       "check": function (checkbox) {
-        console.log("check0");
         checkbox.trigger('change.customForms', ['check']);
       },
       "uncheck": function (checkbox) {
-        console.log("uncheck0");
         checkbox.trigger('change.customForms', ['uncheck']);
       },
       "toggle": function (checkbox) {
@@ -65,7 +62,6 @@ $.fn.checkbox = function (o) {
     }
   });
   if (!$(this).size()) {
-    console.log($(this));
     throw new Error('С объектом ' + $(this).attr("name") + ' произошла ошибка!');
   }
   if (checkboxes.length) {
@@ -116,9 +112,6 @@ $.fn.checkbox = function (o) {
         e.preventDefault();
       });
       function check() {
-        //console.log("check");
-        //console.log(this);
-
         checkbox.attr('checked', true);
         localCustomCheckbox.addClass(checkboxClass);
         if (checkbox.data('label')) {
@@ -126,8 +119,6 @@ $.fn.checkbox = function (o) {
         }
       }
       function uncheck() {
-        //console.log("uncheck");
-
         checkbox.attr('checked', false);
         localCustomCheckbox.removeClass(checkboxClass);
         if (checkbox.data('label')) {

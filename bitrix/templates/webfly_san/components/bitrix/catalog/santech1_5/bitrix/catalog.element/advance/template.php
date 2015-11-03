@@ -14,6 +14,8 @@
 
 $this->setFrameMode(true);
 
+test_dump($arResult);
+
 $strMainID = $this->GetEditAreaId($arResult['ID']);
 $isOffers = !empty($arResult["OFFERS"]);
 $arItemIDs = array(
@@ -90,7 +92,7 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 				<?$useBrands = ('Y' == $arParams['BRAND_USE']);
 				if ($useBrands){?>
 					<span class="brand-text"><?=GetMessage("WF_BRAND")?>:</span>
-					<?$APPLICATION->IncludeComponent("bitrix:catalog.brandblock", "brands2", array(
+					<?$APPLICATION->IncludeComponent("bitrix:catalog.brandblock", "", array(
 						"IBLOCK_TYPE" => $arParams['IBLOCK_TYPE'],
 						"IBLOCK_ID" => $arParams['IBLOCK_ID'],
 						"ELEMENT_ID" => $arResult['ID'],

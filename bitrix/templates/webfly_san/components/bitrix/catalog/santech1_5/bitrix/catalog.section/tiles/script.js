@@ -145,7 +145,7 @@
             }
             this.product.canBuy = arParams.PRODUCT.CAN_BUY;
             this.product.canSubscription = arParams.PRODUCT.SUBSCRIPTION;
-            
+
             this.canBuy = this.product.canBuy;
             this.canSubscription = this.product.canSubscription;
 
@@ -270,7 +270,7 @@
         this.obMeasure = BX(this.visual.QUANTITY_MEASURE);
       }
     }
-    if (!!this.visual.BUY_ID){ 
+    if (!!this.visual.BUY_ID){
       this.obBuyBtn = BX(this.visual.BUY_ID);
     }
 
