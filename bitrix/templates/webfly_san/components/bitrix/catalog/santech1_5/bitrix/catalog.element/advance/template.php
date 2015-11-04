@@ -14,7 +14,7 @@
 
 $this->setFrameMode(true);
 
-test_dump($arResult);
+//test_dump($arResult);
 
 $strMainID = $this->GetEditAreaId($arResult['ID']);
 $isOffers = !empty($arResult["OFFERS"]);
