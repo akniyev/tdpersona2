@@ -6,6 +6,14 @@
 /** @global CDatabase $DB */
 /** @var CBitrixComponentTemplate $this */
 
+/*smthng*
+$arFilter = Array("IBLOCK_ID"=>13);
+$db_list = CIBlockSection::GetList(Array("NAME"=>"ASC"), $arFilter, false);
+while ($arr = $db_list->GetNext()) {
+	$arResult["SECTIONS"][$arr["ID"]]["NAME"] = $arr["NAME"];
+}*/
+
+
 /*TAGS*/
 if ($arParams["SEARCH_PAGE"])
 {
@@ -196,3 +204,17 @@ if ($arParams["TEMPLATE_THEME"] != "")
 }
 if ($arParams["TEMPLATE_THEME"] == "")
 	$arParams["TEMPLATE_THEME"] = "blue";
+
+
+
+/*Sections*/
+$sections = array();
+
+$arrrFilter = Array('IBLOCK_ID'=>$IBLOCK_ID, 'GLOBAL_ACTIVE'=>'Y');
+$db_list = CIBlockSection::GetList(Array($by=>$order), $arrrFilter, true);
+$db_list->NavStart(20);
+
+while($ar_result = $db_list->GetNext()){
+	$sections[$ar_result["ID"]] = $ar_result["NAME"];
+}
+$arResult["SECTIONS"] = $sections;

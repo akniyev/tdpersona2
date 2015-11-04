@@ -18,4 +18,5 @@ $MESS["TP_BN_THEME_WOOD"] = "дерево";
 $MESS["TP_BN_THEME_YELLOW"] = "желтая";
 $MESS["TP_BN_THEME_BLACK"] = "темная";
 $MESS["TP_BN_TEMPLATE_THEME"] = "Цветовая тема";
+$MESS ['IBLOCK_SECTION_CODE'] = "Код раздела";
 ?>

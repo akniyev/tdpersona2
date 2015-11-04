@@ -101,6 +101,7 @@ $this->setFrameMode(true);
 
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
+		//"PARENT_SECTION_CODE" => $arParams["SECTION_CODE"],
 		"INCLUDE_SUBSECTIONS" => "Y",
 
 		"DISPLAY_DATE" => $arParams["DISPLAY_DATE"],

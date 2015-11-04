@@ -64,6 +64,11 @@ $arTemplateParameters = array(
 		"TYPE" => "LIST",
 		"VALUES" => $sliderProperty,
 	),
+	"SECTION_CODE" => array(
+		"NAME" => GetMessage("IBLOCK_SECTION_CODE"),
+		"TYPE" => "STRING",
+		"DEFAULT" => '',
+	),
 );
 
 if ($arCurrentValues["USE_SHARE"] == "Y")
