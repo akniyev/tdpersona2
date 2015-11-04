@@ -1,56 +1,74 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Галерея");
-?><div class="wrapper">
-	<div class="container">
+?>
+	<div class="wrapper">
+	<div class="container" style="width:100%;">
 		<div class="container-hold">
-			<h1>Галерея работ</h1>
-			 <?$APPLICATION->IncludeComponent(
-	"bitrix:photogallery",
-	"",
+			<h1 style="padding:29px 0px 29px 36px;margin-bottom: 0px;"> <? $APPLICATION->ShowTitle(); ?> </h1>
+<?$APPLICATION->IncludeComponent(
+	"bitrix:news.list",
+	"gallery",
 	Array(
-		"ADDITIONAL_SIGHTS" => array(""),
-		"ALBUM_PHOTO_SIZE" => "120",
-		"CACHE_TIME" => "3600",
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"ADD_SECTIONS_CHAIN" => "Y",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "36000000",
 		"CACHE_TYPE" => "A",
-		"COMPONENT_TEMPLATE" => ".default",
-		"DATE_TIME_FORMAT_DETAIL" => "d.m.Y",
-		"DATE_TIME_FORMAT_SECTION" => "d.m.Y",
-		"DRAG_SORT" => "Y",
-		"ELEMENTS_PAGE_ELEMENTS" => "50",
-		"ELEMENT_SORT_FIELD" => "sort",
-		"ELEMENT_SORT_ORDER" => "desc",
+		"CHECK_DATES" => "Y",
+		"COMPONENT_TEMPLATE" => "gallery",
+		"DETAIL_URL" => "",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"DISPLAY_DATE" => "Y",
+		"DISPLAY_NAME" => "Y",
+		"DISPLAY_PICTURE" => "Y",
+		"DISPLAY_PREVIEW_TEXT" => "Y",
+		"DISPLAY_TOP_PAGER" => "N",
+		"FIELD_CODE" => array("",""),
+		"FILTER_NAME" => "",
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "14",
 		"IBLOCK_TYPE" => "news",
-		"JPEG_QUALITY" => "100",
-		"JPEG_QUALITY1" => "100",
-		"ORIGINAL_SIZE" => "1280",
-		"PAGE_NAVIGATION_TEMPLATE" => "",
-		"PATH_TO_FONT" => "default.ttf",
-		"PATH_TO_USER" => "",
-		"PHOTO_LIST_MODE" => "Y",
-		"SECTION_PAGE_ELEMENTS" => "15",
-		"SECTION_SORT_BY" => "UF_DATE",
-		"SECTION_SORT_ORD" => "DESC",
-		"SEF_FOLDER" => "/about/gallery/",
-		"SEF_MODE" => "Y",
-		"SEF_URL_TEMPLATES" => Array("detail"=>"#SECTION_ID#/#ELEMENT_ID#/","detail_edit"=>"#SECTION_ID#/#ELEMENT_ID#/action/#ACTION#/","detail_list"=>"list/","index"=>"index.php","search"=>"search/","section"=>"#SECTION_ID#/","section_edit"=>"#SECTION_ID#/action/#ACTION#/","section_edit_icon"=>"#SECTION_ID#/icon/action/#ACTION#/","upload"=>"#SECTION_ID#/action/upload/"),
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"MEDIA_PROPERTY" => "",
+		"MESSAGE_404" => "",
+		"NEWS_COUNT" => "20",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => ".default",
+		"PAGER_TITLE" => "Новости",
+		"PARENT_SECTION" => "",
+		"PARENT_SECTION_CODE" => "",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"PROPERTY_CODE" => array("",""),
+		"SEARCH_PAGE" => "/search/",
+		"SET_BROWSER_TITLE" => "Y",
+		"SET_LAST_MODIFIED" => "N",
+		"SET_META_DESCRIPTION" => "Y",
+		"SET_META_KEYWORDS" => "Y",
+		"SET_STATUS_404" => "N",
 		"SET_TITLE" => "Y",
-		"SHOWN_ITEMS_COUNT" => "6",
-		"SHOW_LINK_ON_MAIN_PAGE" => array("id","shows","rating","comments"),
-		"SHOW_NAVIGATION" => "N",
-		"SHOW_TAGS" => "N",
-		"THUMBNAIL_SIZE" => "100",
-		"UPLOAD_MAX_FILE_SIZE" => "64",
-		"USE_COMMENTS" => "N",
-		"USE_LIGHT_VIEW" => "Y",
+		"SHOW_404" => "N",
+		"SLIDER_PROPERTY" => "",
+		"SORT_BY1" => "SECTION_ID",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC",
+		"TEMPLATE_THEME" => "blue",
 		"USE_RATING" => "N",
-		"USE_WATERMARK" => "Y",
-		"WATERMARK_MIN_PICTURE_SIZE" => "800",
-		"WATERMARK_RULES" => "USER"
+		"USE_SHARE" => "N"
 	)
 );?>
 		</div>
 	</div>
 </div>
- <br><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

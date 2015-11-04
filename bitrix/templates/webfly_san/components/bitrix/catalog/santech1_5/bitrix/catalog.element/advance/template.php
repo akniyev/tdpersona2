@@ -10,6 +10,8 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+
+
 $this->setFrameMode(true);
 
 test_dump($arResult);
