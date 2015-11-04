@@ -15,6 +15,7 @@
 $this->setFrameMode(true);
 
 
+
 $strMainID = $this->GetEditAreaId($arResult['ID']);
 $isOffers = !empty($arResult["OFFERS"]);
 $arItemIDs = array(
