@@ -43,13 +43,8 @@ if (!empty($arResult['ITEMS'])) {
                   $("#wf-product-catalog").find("ul").append(newd[1]);
                   init();
                   checkbox_change_events($);
-//                  $('.btn-show').click(function () {
-//                      debugger;
-//                      $(this).closest('.btn-row').prev().slideDown(500);
-//                      $(this).fadeOut(250);
-//                      return false;
-//                  });
-                  //show_more_callback();
+                  addToBacketEvent($);
+                  addToBacketAnimationEvent($);
               });
           }
           if(page == numPages) {
@@ -100,7 +95,7 @@ if (!empty($arResult['ITEMS'])) {
 
 
       foreach($arResult["ITEMS"] as $key => $arItem):
-          $key = $key + $PAGE_NUM*12;
+        $key = $key + $PAGE_NUM*12;
         $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], $strElementEdit);
         $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], $strElementDelete, $arElementDeleteParams);
         $strMainID = $this->GetEditAreaId($arItem['ID']);
@@ -160,7 +155,7 @@ if (!empty($arResult['ITEMS'])) {
                     <?endif;?>
                   </div>
                   <?if($arItem["CAN_BUY"]):?>
-                    <a id="<?=$arItemIDs['BUY_LINK']?>" href="javascript:void(0);" class="link-basket<?if($isOffers):?> no-animation<?endif?>" rel="nofollow"><?=GetMessage("CT_BCS_TPL_MESS_BTN_BUY")?></a>
+                    <a id="<?=$arItemIDs['BUY_LINK']?>" href="javascript:void(0);" price-val="<?=$minPrice?>" class="link-basket<?if($isOffers):?> no-animation<?endif?>" rel="nofollow"><?=GetMessage("CT_BCS_TPL_MESS_BTN_BUY")?></a>
                   <?else:?>
                     <a href="javascript:void(0);" class="link-question">?</a>
                   <?endif;?>
@@ -277,6 +272,56 @@ if (!empty($arResult['ITEMS'])) {
             if($("#"+fora).is(":disabled")) alert("<?=GetMessage("WF_AUTHORIZE")?>");
         });
         $(".srav, .fav").addClass("added");
+    }
+
+
+    /* Adding to basket */
+    $(addToBacketEvent);
+    function addToBacketEvent($) {
+        $(".link-basket").not(".added").on("click", function () {
+            var wareId = $(this).attr("id").split('_')[2];
+            if (isNaN(wareId)) {
+                return false;
+            }
+            var url = "<?=SITE_TEMPLATE_PATH?>/ajax/buy.php",
+                price = $(this).attr("price-val"),
+//            options = $(".options input:checked").map(function(){return $(this).data("optid");}).get(),
+                params = {id: wareId, cost: price};
+            if ($(this).is(".btn-credit")) $.extend(params, {credit: "<?=GetMessage("WF_CREDIT_BUY3")?>"});
+            $.post(url, params, function () {
+                BX.onCustomEvent('OnBasketChange');
+            });
+        });
+        $(".link-basket").addClass("added");
+    }
+    function addToBacketAnimationEvent($) {
+        $('.link-basket, .add-basket').not(".added1").on('click', function (event) {
+            if($(this).hasClass("no-animation")) return true;
+            var cartX = Math.ceil($(".basket-footer").offset().left),
+                cartY = Math.ceil($(".basket-footer").offset().top); //cart coordinates
+            var offsetX, offsetY;
+            offsetX = Math.ceil($(this).offset().left);
+            offsetY = Math.ceil($(this).offset().top);	//current button coordinates
+            var virtBtn;
+            if ($(this).is('.link-basket')) {
+                virtBtn = '#virtual';
+            }
+            else {
+                virtBtn = "#virtual2";
+            }
+            $(virtBtn).css({"left": offsetX + "px", "top": offsetY + "px"}).show(1).delay(1).queue(function () {
+                $(virtBtn).css({"top": cartY, "left": cartX, 'opacity': 0, 'transform': 'scale(0.3,0.3)'}).delay(800).queue(function () {
+                    $(virtBtn).css({"top": 0, "left": 0, 'opacity': 1, 'transform': 'scale(1,1)'}).hide(1);
+                    $("#addCart").fadeIn(600).delay(1500).fadeOut(400);
+                    $(".basket-footer > .text").text('1').addClass('basket-count');
+                    $(".basket-info").fadeIn(150);
+                    $(this).dequeue();
+                });
+                $(this).dequeue();
+            });
+            event.preventDefault();
+        });
+        $('.link-basket, .add-basket').addClass("added1");
     }
   </script>
 

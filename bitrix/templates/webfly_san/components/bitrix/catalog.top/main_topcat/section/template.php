@@ -163,7 +163,6 @@ $arResult["FAVS"] = array_flip($favIds);
 </div>
 <script type="text/javascript">
   $(function(){
-    console.log("ready comrad!");
     $(".link-basket").on("click",function(){
       <?if($isOffers):?>
         location.href = "<?=$arItem["DETAIL_PAGE_URL"]?>";

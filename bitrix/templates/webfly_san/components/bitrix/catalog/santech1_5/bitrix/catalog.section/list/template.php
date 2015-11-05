@@ -28,14 +28,20 @@ if (!empty($arResult['ITEMS'])) {
   <script type="text/javascript">
     var page = 1;
     var numPages = Math.ceil(<?=$countAll?>/<?=$arParams["PAGE_ELEMENT_COUNT"]?>);
-    $(function(){
+    $(show_more_callback);
+    function show_more_callback(){
       $(".btn-show").on("click",function(){
         var url = "<?$APPLICATION->GetCurDir();?>";
         page++;
+
         if(page <= numPages){
           $.get(url,{PAGEN_1:page, ajaxw:"Y"},function(d){
-           var newd = d.split("<!--RestartBuffer-->");
-          $("#wf-product-catalog").find("ul").append(newd[1]);
+            var newd = d.split("<!--RestartBuffer-->");
+            $("#wf-product-catalog").find("ul").append(newd[1]);
+            init();
+            checkbox_change_events($);
+            addToBacketEvent($);
+            addToBacketAnimationEvent($);
           });
         }
         if(page == numPages) {
@@ -43,7 +49,7 @@ if (!empty($arResult['ITEMS'])) {
         }
         return false;
       });
-    });
+    }
   </script>
   <?
   CJSCore::Init(array("popup"));
@@ -81,7 +87,9 @@ if (!empty($arResult['ITEMS'])) {
       }?>
       <!--RestartBuffer-->
       <?
+      $PAGE_NUM = $_GET["PAGEN_1"];
       foreach($arResult["ITEMS"] as $key => $arItem):
+        $key = $key + $PAGE_NUM*12;
         $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], $strElementEdit);
         $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], $strElementDelete, $arElementDeleteParams);
         $strMainID = $this->GetEditAreaId($arItem['ID']);
@@ -161,7 +169,19 @@ if (!empty($arResult['ITEMS'])) {
                     <?endif;?>
                 </div>
               <form class="dop_options" method="post" action="" style="margin-top:10px;">
-                <input type="checkbox" id="ch7<?=$key?>" class="srav checkbox" name="my_srav[]" data-count="sravCount" wf-elem-id="<?=$arItem["ID"]?>" value="<?=$arItem["~COMPARE_URL"]?>" />
+                <!--                TODO: delete ajaxw from url with special function   -->
+                <?
+                $compareUrl = str_replace("ajaxw=Y&", "", $arItem["~COMPARE_URL"]);
+                $compareUrl = str_replace("ajaxw=Y", "", $compareUrl);
+                ?>
+                <?
+                if ($_SESSION["CATALOG_COMPARE_LIST"][4]["ITEMS"][$arItem["ID"]] != null)
+                  $checked = "checked";
+                else
+                  $checked = "";
+                ?>
+
+                <input type="checkbox" id="ch7<?=$key?>" class="srav checkbox" name="my_srav[]" data-count="sravCount" <?=$checked?> wf-elem-id="<?=$arItem["ID"]?>" value="<?=$compareUrl?>" />
                 <label for="ch7<?=$key?>" class="myChb hitro-label"><?=GetMessage("CT_BCS_TPL_MESS_BTN_COMPARE")?></label>
 
                 <?
@@ -281,43 +301,140 @@ if (!empty($arResult['ITEMS'])) {
       BTN_MESSAGE_SEND_PROPS: '<?= GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_SEND_PROPS'); ?>',
       BTN_MESSAGE_CLOSE: '<?= GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_CLOSE') ?>'
     });
-    $(function(){
-      $("body").on("change",".srav",function(){
+
+    $(checkbox_change_events);
+    function checkbox_change_events($){
+      $(".srav").not(".added").on("change", function(){
+        debugger;
         var url = "";
+        var _this = this;
+        callback = function (result) {
+          countAnimate(_this);
+        }
         if($(this).is(":checked")){
           url = $(this).val();
-          $.post(url,{},function(d){});
+          $.post(url,{},callback);
         }else{
           var id = $(this).attr("wf-elem-id");
-          url = "/catalog/compare/";
+          url = "/catalog/compare.php";
           var requestData = {action:"DELETE_FROM_COMPARE_RESULT",IBLOCK_ID:<?=$arParams["IBLOCK_ID"]?>,ID:[id]};
-          $.get(url, requestData,function(d){console.log(d);});
+          $.post(url, requestData,callback);
         }
       });
-      $("body").on("change",".fav",function(){
-          var url = "<?=SITE_TEMPLATE_PATH?>/ajax/favorites.php";
-          var requestData = {};
-          var elem = $(this).val();
-          var elemVal = $(this).attr("elem-val");
-          var that = $(this);
-          if($(this).is(":checked")){
-            requestData = {elemId:elem, action:"add"};
-            $.post(url,requestData,function(d){
-              that.val(d);
-            });
-          }else{
-            requestData = {elemId:elem, action:"delete"};
-            $.post(url,requestData,function(d){
-              that.val(elemVal);
-              subsFav();
-            });
-          }
+      $(".fav").not(".added").on("change",function(){
+        var _this = this;
+        var url = "<?=SITE_TEMPLATE_PATH?>/ajax/favorites.php";
+        var requestData = {};
+        var elem = $(this).val();
+        var elemVal = $(this).attr("elem-val");
+        var that = $(this);
+        if($(this).is(":checked")){
+          requestData = {elemId:elem, action:"add"};
+          $.post(url,requestData,function(d){
+            that.val(d);
+            countAnimate(_this);
+          });
+        }else{
+          requestData = {elemId:elem, action:"delete"};
+          $.post(url,requestData,function(d){
+            that.val(elemVal);
+            subsFav();
+          });
+        }
       });
       $("body").on("click",".dop_options .myChb",function(){
         var fora = $(this).attr("for");
         if($("#"+fora).is(":disabled")) alert("<?=GetMessage("WF_AUTHORIZE")?>");
       });
-    });
+      $(".srav, .fav").addClass("added");
+    }
+
+
+    /* Adding to basket */
+    $(addToBacketEvent);
+    function addToBacketEvent($) {
+      $(".link-basket").not(".added").on("click", function () {
+        var wareId = $(this).attr("id").split('_')[2];
+        if (isNaN(wareId)) {
+          return false;
+        }
+        var url = "<?=SITE_TEMPLATE_PATH?>/ajax/buy.php",
+            price = $(this).attr("price-val"),
+//            options = $(".options input:checked").map(function(){return $(this).data("optid");}).get(),
+            params = {id: wareId, cost: price};
+        if ($(this).is(".btn-credit")) $.extend(params, {credit: "<?=GetMessage("WF_CREDIT_BUY3")?>"});
+        $.post(url, params, function () {
+          BX.onCustomEvent('OnBasketChange');
+        });
+      });
+      $(".link-basket").addClass("added");
+    }
+    function addToBacketAnimationEvent($) {
+      $('.link-basket, .add-basket').not(".added1").on('click', function (event) {
+        if($(this).hasClass("no-animation")) return true;
+        var cartX = Math.ceil($(".basket-footer").offset().left),
+            cartY = Math.ceil($(".basket-footer").offset().top); //cart coordinates
+        var offsetX, offsetY;
+        offsetX = Math.ceil($(this).offset().left);
+        offsetY = Math.ceil($(this).offset().top);	//current button coordinates
+        var virtBtn;
+        if ($(this).is('.link-basket')) {
+          virtBtn = '#virtual';
+        }
+        else {
+          virtBtn = "#virtual2";
+        }
+        $(virtBtn).css({"left": offsetX + "px", "top": offsetY + "px"}).show(1).delay(1).queue(function () {
+          $(virtBtn).css({"top": cartY, "left": cartX, 'opacity': 0, 'transform': 'scale(0.3,0.3)'}).delay(800).queue(function () {
+            $(virtBtn).css({"top": 0, "left": 0, 'opacity': 1, 'transform': 'scale(1,1)'}).hide(1);
+            $("#addCart").fadeIn(600).delay(1500).fadeOut(400);
+            $(".basket-footer > .text").text('1').addClass('basket-count');
+            $(".basket-info").fadeIn(150);
+            $(this).dequeue();
+          });
+          $(this).dequeue();
+        });
+        event.preventDefault();
+      });
+      $('.link-basket, .add-basket').addClass("added1");
+    }
+//    $(function(){
+//      $("body").on("change",".srav",function(){
+//        var url = "";
+//        if($(this).is(":checked")){
+//          url = $(this).val();
+//          $.post(url,{},function(d){});
+//        }else{
+//          var id = $(this).attr("wf-elem-id");
+//          url = "/catalog/compare/";
+//          var requestData = {action:"DELETE_FROM_COMPARE_RESULT",IBLOCK_ID:<?//=$arParams["IBLOCK_ID"]?>//,ID:[id]};
+//          $.get(url, requestData,function(d){console.log(d);});
+//        }
+//      });
+//      $("body").on("change",".fav",function(){
+//          var url = "<?//=SITE_TEMPLATE_PATH?>///ajax/favorites.php";
+//          var requestData = {};
+//          var elem = $(this).val();
+//          var elemVal = $(this).attr("elem-val");
+//          var that = $(this);
+//          if($(this).is(":checked")){
+//            requestData = {elemId:elem, action:"add"};
+//            $.post(url,requestData,function(d){
+//              that.val(d);
+//            });
+//          }else{
+//            requestData = {elemId:elem, action:"delete"};
+//            $.post(url,requestData,function(d){
+//              that.val(elemVal);
+//              subsFav();
+//            });
+//          }
+//      });
+//      $("body").on("click",".dop_options .myChb",function(){
+//        var fora = $(this).attr("for");
+//        if($("#"+fora).is(":disabled")) alert("<?//=GetMessage("WF_AUTHORIZE")?>//");
+//      });
+//    });
   </script>
   <?
 }
