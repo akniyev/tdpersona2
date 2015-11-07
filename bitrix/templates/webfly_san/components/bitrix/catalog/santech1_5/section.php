@@ -109,9 +109,9 @@ $this->setFrameMode(true);?>
   <div id="content">
     <div class="c1">
       <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog", Array(
-          "START_FROM" => "0",	// Номер пункта, начиная с которого будет построена навигационная цепочка
-          "PATH" => "/catalog/",	// Путь, для которого будет построена навигационная цепочка (по умолчанию, текущий путь)
-          "SITE_ID" => "",	// Cайт (устанавливается в случае многосайтовой версии, когда DOCUMENT_ROOT у сайтов разный)
+          "START_FROM" => "0",	// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+          "PATH" => "/catalog/",	// пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
+          "SITE_ID" => "",	// CпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ DOCUMENT_ROOT пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
         ),
         false
       );
@@ -241,7 +241,15 @@ $this->setFrameMode(true);?>
     </div>
   </div>
   <div id="sidebar">
-    <?$APPLICATION->ShowViewContent("sm-filter");?>
+    <?
+    $frame = new \Bitrix\Main\Page\FrameStatic("filter-dynamic");
+    $frame->setAnimation(true);
+    $frame->setStub("");
+    $frame->setContainerId("sidebar");
+    $frame->startDynamicArea();
+    $APPLICATION->ShowViewContent("sm-filter");
+    $frame->finishDynamicArea();
+    ?>
   </div>
 </div>
 <?if($arParams["USE_COMPARE"]=="Y"):?>

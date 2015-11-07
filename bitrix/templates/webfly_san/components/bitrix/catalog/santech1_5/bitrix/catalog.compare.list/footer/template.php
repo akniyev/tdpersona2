@@ -1,12 +1,21 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-<li>
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+$this->setFrameMode(true);
+?>
+
+
+<li id="comparelist-container">
   <a href="<?=$arParams["COMPARE_URL"]?>"><?=GetMessage("CATALOG_COMPARE_ELEMENTS")?></a>
   <?
   if(count($arResult)>0) $class="sravCount--active";
   else $class="";
+
+  //$frame = $this->createFrame("comparelist-container",false)->begin();
   ?>
   <span class="sravCount <?=$class?>"><?=count($arResult)?></span>
   <span id="srav" class="add-block new"><?=GetMessage("WF_CATALOG_ELS")?></span>
+  <?
+  //$frame->end();
+  ?>
 </li>
 <!--div class="catalog-compare-list">
 <a name="compare_list"></a>
