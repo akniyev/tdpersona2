@@ -69,7 +69,11 @@ $this->setFrameMode(true);?>
     $arCurSection = array();
   }
   $this->SetViewTarget("sm-filter");
+
+  $staticHTMLCache = \Bitrix\Main\Data\StaticHTMLCache::getInstance();
+  $staticHTMLCache->disableVoting();
   ?>
+
 
     <?$APPLICATION->IncludeComponent(
     "bitrix:catalog.smart.filter",
@@ -103,7 +107,9 @@ $this->setFrameMode(true);?>
     $component,
     array('HIDE_ICONS' => 'Y')
   );?>
-  <?$this->EndViewTarget();
+  <?
+  $staticHTMLCache->enableVoting();
+  $this->EndViewTarget();
 }?>
 <div class="main-frame">
   <div id="content">
