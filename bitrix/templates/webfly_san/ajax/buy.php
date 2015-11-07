@@ -39,13 +39,13 @@ $arFields = array(
 /*$arProps = array();
 
 $arProps[] = array(
-  "NAME" => "Ñîäåðæèìîå",
+  "NAME" => "Ð¡Ð¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ",
   "CODE" => "WF_PACK_CONTENT",
   "VALUE" => "$names"
 );
 if(!empty($names2)){
   $arProps[] = array(
-    "NAME" => "Ñîäåðæèìîå ÷2",
+    "NAME" => "Ð¡Ð¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ Ñ‡2",
     "CODE" => "WF_PACK_CONTENT2",
     "VALUE" => "$names2"
   );

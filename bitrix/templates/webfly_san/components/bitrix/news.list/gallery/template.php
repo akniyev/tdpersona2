@@ -43,8 +43,9 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 <?endif;?>
 
 <style>
-	.newsection{width:100%; display:inline-block; border-bottom:1px solid #ccc;padding-bottom:30px; margin-bottom:20px;}
-	.secthead{padding:20px 36px; text-align: right; font-weight:bold; font: 32px/36px 'ubuntulight', Arial, Helvetica, sans-serif; }
+	.newsection{width:100%; display:inline-block; margin-bottom:20px;}
+	.newsecdivider{border-bottom:1px solid #ccc;width:100%;height:30px;}
+	.secthead{padding:20px 36px; text-align: center; font-weight:bold; font: 32px/36px 'ubuntulight', Arial, Helvetica, sans-serif; }
 </style
 
 <div class="row">
@@ -56,7 +57,11 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));?>
 			<? if ($sec_changer != $arItem["IBLOCK_SECTION_ID"]):?>
 				<? $sec_changer = $arItem["IBLOCK_SECTION_ID"]; ?>
-				</div><div class="newsection"><h2 class="secthead"><?= $arResult["SECTIONS"][$sec_changer] ?></h2>
+				</div>
+				<? if ($sec_changer != null): ?>
+					<div class="newsecdivider"></div>
+				<?endif;?>
+				<div class="newsection"><h2 class="secthead"><?= $arResult["SECTIONS"][$sec_changer] ?></h2>
 			<?endif;?>
 
 			<div class="bx-newslist-container col-sm-6 col-md-4" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
@@ -134,8 +139,8 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 					<?elseif (is_array($arItem["PREVIEW_PICTURE"])):?>
 						<div class="bx-newslist-img">
 						<?if(!$arParams["HIDE_LINK_WHEN_NO_DETAIL"] || ($arItem["DETAIL_TEXT"] && $arResult["USER_HAVE_ACCESS"])):?>
-							<a href="#">
-								<img  class="lightim"
+							<a href="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" class="lightim">
+								<img
 									src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>"
 									width="<?=$arItem["PREVIEW_PICTURE"]["WIDTH"]?>"
 									height="<?=$arItem["PREVIEW_PICTURE"]["HEIGHT"]?>"
@@ -232,6 +237,6 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("img.lightim").fancybox();
+		$("a.lightim").fancybox();
 	});
 </script>

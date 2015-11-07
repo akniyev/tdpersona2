@@ -1,4 +1,6 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+$this->setFrameMode(true);
+?>
 <form name="<?= $arResult["FILTER_NAME"]."_form"?>" action="<?= $arResult["FORM_ACTION"]?>" method="get" style="display:none;" id="<?= $arResult["FILTER_NAME"]."_form"?>">
 	<?foreach($arResult["ITEMS"] as $arItem):
 		if(array_key_exists("HIDDEN", $arItem)):

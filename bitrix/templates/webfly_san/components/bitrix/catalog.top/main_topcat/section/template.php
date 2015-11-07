@@ -147,7 +147,7 @@ $arResult["FAVS"] = array_flip($favIds);
                     }
                     ?>
                     <input type="checkbox" id="ch2<?=$key?>" class="fav checkbox" name="my_fav[]" data-count="favCount" value="<?=$favVal?>" elem-val="<?=$arItem["ID"]?>" <?=$checked?> <?=$disabled?>/>
-                    <label for="ch2<?=$key?>" class="myChb" hitro-label><?=GetMessage("WF_FAVORITES")?></label>
+                    <label for="ch2<?=$key?>" class="myChb hitro-label" ><?=GetMessage("WF_FAVORITES")?></label>
                   </form>
                 </div>
               </div>
@@ -174,7 +174,9 @@ $arResult["FAVS"] = array_flip($favIds);
         });
       <?endif?>
     });
-    $("body").on("change",".fav",function(){
+    // $(".fav").on("change", function(){console.log(".fav on change")});
+    $("body").on("change",".fav", function(){
+      console.log("body change .fav");
       var url = "<?=SITE_TEMPLATE_PATH?>/ajax/favorites.php";
       var requestData = {};
       var elem = $(this).val();
@@ -184,6 +186,7 @@ $arResult["FAVS"] = array_flip($favIds);
         requestData = {elemId:elem, action:"add"};
         $.post(url,requestData,function(d){
           that.val(d);
+          countAnimate(that);
         });
       }else{
         requestData = {elemId:elem, action:"delete"};

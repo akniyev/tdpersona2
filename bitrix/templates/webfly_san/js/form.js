@@ -1,5 +1,11 @@
+BX.addCustomEvent("onFrameDataReceived", function(json){
+  console.log("frame received");
+  init();
+  checkbox_change_events($);
+});
+
 function init() {
-  if ( $('input:checkbox').not(".su perIgnore").length > 0)
+  if ( $('input:checkbox').not(".superIgnore").length > 0)
     var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
   checkboxStyling('.styledRadio', '.styledLabel');
   $('.styledLabel').on('click', function(e){
@@ -117,6 +123,7 @@ $.fn.checkbox = function (o) {
         if (checkbox.data('label')) {
           checkbox.data('label').addClass(labelClass);
         }
+
       }
       function uncheck() {
         checkbox.attr('checked', false);
@@ -124,6 +131,7 @@ $.fn.checkbox = function (o) {
         if (checkbox.data('label')) {
           checkbox.data('label').removeClass(labelClass);
         }
+
       }
     });
   } else {

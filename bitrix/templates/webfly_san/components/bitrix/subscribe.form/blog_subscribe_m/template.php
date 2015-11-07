@@ -12,6 +12,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+$this->setFrameMode(true);
 ?>
 <noindex>
 <h4><?= GetMessage("wf_subscribe_us")?></h4>

@@ -4,7 +4,11 @@ Thumbs.db
 /.idea/
 /sitemap*.xml
 
+log.txt
+log/
 /upload/*
+bitrix/html_pages/
+bitrix/stack_cache/
 bitrix/activities/
 bitrix/admin/
 bitrix/backup/
