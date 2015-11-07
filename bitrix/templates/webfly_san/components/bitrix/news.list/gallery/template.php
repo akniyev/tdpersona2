@@ -70,7 +70,7 @@ $APPLICATION->AddHeadString('<style>
 			<div class="bx-newslist-container col-sm-6 col-md-4" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
 				<div class="bx-newslist-block">
 					<h2 class="bx-newslist-title" style="margin:0px 30px; text-align:center;">
-						<a href=""><?echo $arItem["NAME"]?></a>
+						<?echo $arItem["NAME"]?>
 					</h2>
 					<?if($arParams["DISPLAY_PICTURE"]!="N"):?>
 						<?if ($arItem["VIDEO"]):?>
