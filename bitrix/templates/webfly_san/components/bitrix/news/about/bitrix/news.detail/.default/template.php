@@ -59,7 +59,9 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
       <?endif?>
 			<?/*<li><a href="<?=$sidebar["URL"]?>"><?=$sidebar["NAME"]?></a></li>*/?>
 			<?if (strtoupper($sidebar["NAME"]) == "СОТРУДНИКИ"):?>
-			<li><a href="/about/staff/"><?=$sidebar["NAME"]?></a></li>
+            <li><a href="/about/staff/"><?=$sidebar["NAME"];?></a></li>
+            <?elseif (strtoupper($sidebar["NAME"]) == "ГАЛЕРЕЯ РАБОТ"):?>
+            <li><a href="/about/gallery/"><?=$sidebar["NAME"]?></a></li>
 			<?elseif (strtoupper($sidebar["NAME"]) == strtoupper($arResult["NAME"])):?>
 			<li><p><?=$sidebar["NAME"]?></p></li>
 			<?else:?>
