@@ -1,27 +1,38 @@
-BX.addCustomEvent("onFrameDataReceived", function(json){
-  console.log("frame received");
-  init();
-  checkbox_change_events($);
-});
-
-function init() {
-  if ( $('input:checkbox').not(".superIgnore").length > 0)
-    var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
-  checkboxStyling('.styledRadio', '.styledLabel');
-  $('.styledLabel').on('click', function(e){
-    checkboxStyling('.styledRadio', '.styledLabel');
+if (window.frameCacheVars !== undefined)
+{
+  BX.addCustomEvent("onFrameDataReceived" , function(json) {
+    console.log("frame received");
+    console.log(json);
+    init();
   });
+} else {
+    $(init);
 }
 
 
-$(function init() {
+function tickOffCompareCheckboxes()
+{
+  var compare_list = $.parseJSON($("input#compare_list_items").val()
+                        .replace(/'/g,"\"")); // json parser doesn't understand symbol '
+  compare_list.forEach(function(id){
+    $("input[type=checkbox][wf-elem-id="+id+"]").prop("checked","checked");
+  });
+}
+
+function init() {
+  tickOffCompareCheckboxes();
   if ( $('input:checkbox').not(".superIgnore").length > 0)
     var _checkbox = $('input:checkbox').not(".superIgnore").checkbox();
   checkboxStyling('.styledRadio', '.styledLabel');
   $('.styledLabel').on('click', function(e){
     checkboxStyling('.styledRadio', '.styledLabel');
   });
-});
+  checkbox_change_events($);
+  addToBacketEvent($);
+  addToBacketAnimationEvent($);
+}
+
+
 $.fn.checkbox = function (o) {
   var callMethod = $.fn.checkbox.method;
   if (typeof o == "string" && o in $.fn.checkbox.method) {

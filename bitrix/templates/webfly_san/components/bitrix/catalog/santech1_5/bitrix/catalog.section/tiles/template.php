@@ -14,6 +14,8 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @var CBitrixComponent $component */
 //test_dump($arResult);
 $this->setFrameMode(true);
+
+
 $Fav = new wfHighLoadBlock(3);
   $favList = $Fav->elemGet();
   $favIds = array();
@@ -28,6 +30,7 @@ if (!empty($arResult['ITEMS'])) {
 
 //  if (!$countAll) $countAll = 1;
 ?>
+
 <script type="text/javascript">
   var page = 1;
   var numPages = Math.ceil(<?=$countAll?>/<?=$arParams["PAGE_ELEMENT_COUNT"]?>);
@@ -42,9 +45,6 @@ if (!empty($arResult['ITEMS'])) {
                   var newd = d.split("<!--RestartBuffer-->");
                   $("#wf-product-catalog").find("ul").append(newd[1]);
                   init();
-                  checkbox_change_events($);
-                  addToBacketEvent($);
-                  addToBacketAnimationEvent($);
               });
           }
           if(page == numPages) {
@@ -175,7 +175,7 @@ if (!empty($arResult['ITEMS'])) {
 
                 <?
                     if ($_SESSION["CATALOG_COMPARE_LIST"][4]["ITEMS"][$arItem["ID"]] != null)
-                        $checked = "checked";
+                        $checked = "";
                     else
                         $checked = "";
                 ?>
@@ -236,7 +236,8 @@ if (!empty($arResult['ITEMS'])) {
     }
     ?>
   <script type="text/javascript">
-    $(checkbox_change_events);
+
+
     function checkbox_change_events($){
         $(".srav").not(".added").on("change", function(){
             var url = "";
@@ -284,7 +285,6 @@ if (!empty($arResult['ITEMS'])) {
 
 
     /* Adding to basket */
-    $(addToBacketEvent);
     function addToBacketEvent($) {
         $(".link-basket").not(".added").on("click", function () {
             var wareId = $(this).attr("id").split('_')[2];

@@ -13,6 +13,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+Trace("start");
 $Fav = new wfHighLoadBlock(3);
   $favList = $Fav->elemGet();
   $favIds = array();
@@ -39,9 +40,6 @@ if (!empty($arResult['ITEMS'])) {
             var newd = d.split("<!--RestartBuffer-->");
             $("#wf-product-catalog").find("ul").append(newd[1]);
             init();
-            checkbox_change_events($);
-            addToBacketEvent($);
-            addToBacketAnimationEvent($);
           });
         }
         if(page == numPages) {
@@ -82,12 +80,17 @@ if (!empty($arResult['ITEMS'])) {
     <ul style="position: relative;">
       <?
       if(isset($_GET["ajaxw"])){
+        Trace("before restart");
         $APPLICATION->RestartBuffer();
+        Trace("after restart");
         include ($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+        Trace("after include");
       }?>
       <!--RestartBuffer-->
       <?
       $PAGE_NUM = $_GET["PAGEN_1"];
+
+      $num=0;
       foreach($arResult["ITEMS"] as $key => $arItem):
         $key = $key + $PAGE_NUM*12;
         $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], $strElementEdit);
@@ -168,15 +171,20 @@ if (!empty($arResult['ITEMS'])) {
                       <a href="javascript:void(0);" class="link-question" rel="nofollow">?</a>
                     <?endif;?>
                 </div>
-              <form class="dop_options" method="post" action="" style="margin-top:10px;">
+              <form id="dop_options_container_<?=$num?>" class="dop_options" method="post" action="" style="margin-top:10px;">
                 <!--                TODO: delete ajaxw from url with special function   -->
                 <?
+                $frame = $this->createFrame("dop_options_container_$num",false);
+                ++$num;
+                $frame->setAnimation(true);
+                $frame->begin("Loading...");
+
                 $compareUrl = str_replace("ajaxw=Y&", "", $arItem["~COMPARE_URL"]);
                 $compareUrl = str_replace("ajaxw=Y", "", $compareUrl);
                 ?>
                 <?
                 if ($_SESSION["CATALOG_COMPARE_LIST"][4]["ITEMS"][$arItem["ID"]] != null)
-                  $checked = "checked";
+                  $checked = "";
                 else
                   $checked = "";
                 ?>
@@ -200,6 +208,9 @@ if (!empty($arResult['ITEMS'])) {
                 ?>
                 <input type="checkbox" id="ch8<?=$key?>" class="fav checkbox" name="my_fav[]" data-count="favCount" value="<?=$favVal?>" elem-val="<?=$arItem["ID"]?>" <?=$checked?> <?=$disabled?>/>
                 <label for="ch8<?=$key?>" class="myChb hitro-label"><?=GetMessage("WF_FAVORITES")?></label>
+                <?
+                  $frame->end();
+                ?>
               </form>
               <?
               $arJSParams = array(
@@ -302,7 +313,6 @@ if (!empty($arResult['ITEMS'])) {
       BTN_MESSAGE_CLOSE: '<?= GetMessageJS('CT_BCS_CATALOG_BTN_MESSAGE_CLOSE') ?>'
     });
 
-    $(checkbox_change_events);
     function checkbox_change_events($){
       $(".srav").not(".added").on("change", function(){
         debugger;
@@ -351,7 +361,6 @@ if (!empty($arResult['ITEMS'])) {
 
 
     /* Adding to basket */
-    $(addToBacketEvent);
     function addToBacketEvent($) {
       $(".link-basket").not(".added").on("click", function () {
         var wareId = $(this).attr("id").split('_')[2];

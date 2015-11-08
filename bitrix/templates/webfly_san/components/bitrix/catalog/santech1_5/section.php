@@ -15,6 +15,7 @@ $arResult["VARIABLES"]["SECTION_CODE_PATH"] = $_REQUEST["SECTION_CODE_PATH"];
 $arResult["VARIABLES"]["SECTION_CODE"] = $_REQUEST["SECTION_CODE"];
 
 
+
 //test_dump($arResult);
 //test_dump($_REQUEST);
 //test_dump($arParams);
@@ -157,6 +158,8 @@ $this->setFrameMode(true);?>
       $sortOrder2 = $arParams["ELEMENT_SORT_ORDER"];
       ?>
       <?$intSectionID = 0;?>
+
+
         <?$intSectionID = $APPLICATION->IncludeComponent(
         "bitrix:catalog.section",
         $sectionTemplate,
@@ -246,6 +249,22 @@ $this->setFrameMode(true);?>
       );?>
     </div>
   </div>
+
+
+
+  <div id="compare_list_items_container" style="display: none">
+  <?
+  $str = CUtil::PhpToJSObject(array_keys($_SESSION["CATALOG_COMPARE_LIST"][4]["ITEMS"]));
+  Trace($str);
+  $frame = new \Bitrix\Main\Page\FrameBuffered("compare_list_items_container", false);
+  $frame->begin('');
+  ?>
+  <input id="compare_list_items" type="hidden" value="<?=$str?>">
+  <?$frame->end();?>
+  </div>
+
+
+
   <div id="sidebar">
     <?
     $frame = new \Bitrix\Main\Page\FrameStatic("filter-dynamic");
