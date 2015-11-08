@@ -65,8 +65,9 @@ $APPLICATION->SetTitle("Доставка термошкафов ITProm");
 			1 => "",
 		),
 		"DETAIL_PROPERTY_CODE" => array(
-			0 => "SECTION",
-			1 => "",
+			0 => "EXT_LINK",
+			1 => "SECTION",
+			2 => "",
 		),
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",
 		"DETAIL_DISPLAY_BOTTOM_PAGER" => "N",

@@ -9,9 +9,9 @@ $APPLICATION->SetTitle("Сотрудники компании ITProm");
 		<div class="container-hold">
 			<h1 style="padding:29px 0px 29px 36px;margin-bottom: 0px;"> <? $APPLICATION->ShowTitle(); ?> </h1>
 			 <?$APPLICATION->IncludeComponent(
-	"bitrix:news", 
-	"stafflist", 
-	array(
+	"bitrix:news",
+	"stafflist",
+	Array(
 		"ADD_ELEMENT_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"AJAX_MODE" => "N",
@@ -31,17 +31,11 @@ $APPLICATION->SetTitle("Сотрудники компании ITProm");
 		"DETAIL_ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"DETAIL_DISPLAY_BOTTOM_PAGER" => "N",
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",
-		"DETAIL_FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"DETAIL_FIELD_CODE" => array("",""),
 		"DETAIL_PAGER_SHOW_ALL" => "N",
 		"DETAIL_PAGER_TEMPLATE" => "",
 		"DETAIL_PAGER_TITLE" => "Страница",
-		"DETAIL_PROPERTY_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"DETAIL_PROPERTY_CODE" => array("","mail","rank",""),
 		"DETAIL_SET_CANONICAL_URL" => "N",
 		"DISPLAY_AS_RATING" => "rating",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
@@ -58,16 +52,8 @@ $APPLICATION->SetTitle("Сотрудники компании ITProm");
 		"IBLOCK_TYPE" => "Staff",
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
 		"LIST_ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"LIST_FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"LIST_PROPERTY_CODE" => array(
-			0 => "",
-			1 => "mail",
-			2 => "rank",
-			3 => "",
-		),
+		"LIST_FIELD_CODE" => array("",""),
+		"LIST_PROPERTY_CODE" => array("mail","rank",""),
 		"MEDIA_PROPERTY" => "",
 		"MESSAGE_404" => "",
 		"META_DESCRIPTION" => "-",
@@ -84,6 +70,7 @@ $APPLICATION->SetTitle("Сотрудники компании ITProm");
 		"PREVIEW_TRUNCATE_LEN" => "",
 		"SEF_FOLDER" => "/about/staff/",
 		"SEF_MODE" => "Y",
+		"SEF_URL_TEMPLATES" => Array("detail"=>"#ELEMENT_CODE#/","news"=>"","section"=>""),
 		"SET_LAST_MODIFIED" => "N",
 		"SET_STATUS_404" => "N",
 		"SET_TITLE" => "N",
@@ -103,16 +90,10 @@ $APPLICATION->SetTitle("Сотрудники компании ITProm");
 		"USE_REVIEW" => "N",
 		"USE_RSS" => "N",
 		"USE_SEARCH" => "N",
-		"USE_SHARE" => "N",
-		"SEF_URL_TEMPLATES" => array(
-			"news" => "",
-			"section" => "",
-			"detail" => "#ELEMENT_CODE#/",
-		)
-	),
-	false
+		"USE_SHARE" => "N"
+	)
 );?>
 		</div>
 	</div>
 </div>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
