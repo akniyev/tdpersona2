@@ -68,8 +68,13 @@
 </div>
 <!-- Footer fixed -->
 <div class="footer-row">
+
     <div class="footer-center">
-        <div class="block-feedback">
+        <div id="footer-feedback-container"  class="block-feedback">
+            <?
+            $frame = new \Bitrix\Main\Page\FrameBuffered("footer-feedback-container", false);
+            $frame->begin('');
+            ?>
             <a href="#" class="link-feedback"><span><?=GetMessage("WF_FOOTER_FEEDBACK");?></span></a>
             <div class="popup-feedback" mode="" mode-mess="">
                 <?$APPLICATION->IncludeComponent(
@@ -89,8 +94,22 @@
                     ),
                     false
                 );?>
+
+
             </div>
+            <?
+            $frame->end();
+            ?>
         </div>
+        <div id="bx-composite-banner" style="float: left"></div>
+        <div id="footer-right-container">
+        <?
+        $frame = new \Bitrix\Main\Page\FrameStatic("footer-dynamic");
+        $frame->setAnimation(true);
+        $frame->setStub("");
+        $frame->setContainerId("footer-right-container");
+        $frame->startDynamicArea();
+        ?>
         <span class="link-top-hold">
           <a href="#" class="link-top"> </a>
           <span class="arrow-grey"> </span>
@@ -135,6 +154,10 @@
             }
             ?>
         </ul>
+            <?
+            $frame->finishDynamicArea();
+            ?>
+        </div>
     </div>
 </div>
 

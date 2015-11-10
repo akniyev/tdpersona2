@@ -13,6 +13,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $containerId = "catalog-compare-list" . $this->randString();
+
+$this->setFrameMode(true);
+
 ?>
 <div class="catalog-compare-list" id="<?= $containerId ?>">
   <? $frame = $this->createFrame($containerId)->begin(''); ?>

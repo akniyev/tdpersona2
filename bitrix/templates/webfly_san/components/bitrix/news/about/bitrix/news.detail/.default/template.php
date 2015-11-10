@@ -1,6 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-<? 
+<?
+$this->setFrameMode(true);
 //////////////////
 // Fancy Boxing //
 $APPLICATION->AddHeadScript('http://code.jquery.com/jquery-latest.min.js');
@@ -34,9 +35,8 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
 <div id="content">
   <div class="c1">
     <div class="content-text-inner">
-		<!--<h2 style="margin-bottom: 20px;width:100%;text-align:right;;"><?=$arResult["PROPERTIES"]["SECTION"]["VALUE"]?></h2>-->
+		<!--<h2 style="margin-bottom: 20px;width:100%;text-align:right;;"><?//=$arResult["PROPERTIES"]["SECTION"]["VALUE"]?></h2>-->
    		<h1><?=$arResult["NAME"]?></h1>
-
       <?=$arResult["PREVIEW_TEXT"]?>
     </div>
   </div>
@@ -56,14 +56,26 @@ $APPLICATION->AddHeadScript($fancypath."source/helpers/jquery.fancybox-thumbs.js
           <h3><?=$cat?></h3>
           <ul>
       <?endif?>
-			<?/*<li><a href="<?=$sidebar["URL"]?>"><?=$sidebar["NAME"]?></a></li>*/?>
-			<?if (strtoupper($sidebar["NAME"]) == "СОТРУДНИКИ"):?>
-			<li><a href="/about/staff/"><?=$sidebar["NAME"]?></a></li>
-			<?elseif (strtoupper($sidebar["NAME"]) == strtoupper($arResult["NAME"])):?>
-			<li><p><?=$sidebar["NAME"]?></p></li>
-			<?else:?>
-			<li><a href="<?=$sidebar["URL"]?>/"><?=$sidebar["NAME"]?></a></li>
-			<?endif?>
+          <?
+          $link = "";
+          switch (strtoupper($sidebar["NAME"])) {
+            case "СОТРУДНИКИ":
+             $link = "/about/staff/";
+            break;
+            case "ГАЛЕРЕЯ РАБОТ":
+             $link = "/about/gallery/";
+            break;
+          }
+          ?>
+
+          <?if ($link != ""):?>
+            <li><a href="<?=$link?>"><?=$sidebar["NAME"];?></a></li>
+          <?elseif (strtoupper($sidebar["NAME"]) == strtoupper($arResult["NAME"])):?>
+            <li><p><?=$sidebar["NAME"]?></p></li>
+          <?else:?>
+            <li><a href="<?=$sidebar["URL"]?>/"><?=$sidebar["NAME"]?></a></li>
+          <?endif?>
+
       <?$prevCat = $cat;?>
     <?endforeach;?>
   </ul>

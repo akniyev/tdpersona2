@@ -10,6 +10,8 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
+
+$this->setFrameMode(true);
 ?>
 <noindex>
 <h2 class="title-type04"><?=GetMessage("wf_subscribe")?></h2>

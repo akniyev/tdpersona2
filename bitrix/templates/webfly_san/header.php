@@ -91,7 +91,11 @@ require_once 'settings.php';
 <div id="header">
 	<div class="header-top">
 		<div class="header-center">
-			<div class="input-block">
+			<div id="auth-container" class="input-block">
+				<? 
+					$frame = new \Bitrix\Main\Page\FrameBuffered("auth-container", false);
+					$frame->begin('');
+				?>
 				<?if($USER->IsAuthorized()):?>
 					<?$APPLICATION->IncludeComponent("bitrix:system.auth.form", "auth", Array(
 						"REGISTER_URL" => "",
@@ -114,6 +118,7 @@ require_once 'settings.php';
 						);?>
 					</div>
 				<?endif?>
+
 				<div class="popup-input popup-password">
 					<?$APPLICATION->IncludeComponent("bitrix:system.auth.forgotpasswd", "frgt", Array());?>
 				</div>
@@ -135,6 +140,7 @@ require_once 'settings.php';
 						)
 					);?>
 				</div>
+				<? $frame->end(); ?>
 			</div>
 			<div class="help-block">
 				<a href="/about/"><span class="icon20px icon-help"></span><?=GetMessage("WF_HELP")?></a>

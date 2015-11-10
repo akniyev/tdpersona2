@@ -15,6 +15,7 @@ $arResult["VARIABLES"]["SECTION_CODE_PATH"] = $_REQUEST["SECTION_CODE_PATH"];
 $arResult["VARIABLES"]["SECTION_CODE"] = $_REQUEST["SECTION_CODE"];
 
 
+
 //test_dump($arResult);
 //test_dump($_REQUEST);
 //test_dump($arParams);
@@ -69,7 +70,11 @@ $this->setFrameMode(true);?>
     $arCurSection = array();
   }
   $this->SetViewTarget("sm-filter");
+
+  $staticHTMLCache = \Bitrix\Main\Data\StaticHTMLCache::getInstance();
+  $staticHTMLCache->disableVoting();
   ?>
+
 
     <?$APPLICATION->IncludeComponent(
     "bitrix:catalog.smart.filter",
@@ -103,15 +108,17 @@ $this->setFrameMode(true);?>
     $component,
     array('HIDE_ICONS' => 'Y')
   );?>
-  <?$this->EndViewTarget();
+  <?
+  $staticHTMLCache->enableVoting();
+  $this->EndViewTarget();
 }?>
 <div class="main-frame">
   <div id="content">
     <div class="c1">
       <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog", Array(
-          "START_FROM" => "0",	// Номер пункта, начиная с которого будет построена навигационная цепочка
-          "PATH" => "/catalog/",	// Путь, для которого будет построена навигационная цепочка (по умолчанию, текущий путь)
-          "SITE_ID" => "",	// Cайт (устанавливается в случае многосайтовой версии, когда DOCUMENT_ROOT у сайтов разный)
+          "START_FROM" => "0",	// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+          "PATH" => "/catalog/",	// пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
+          "SITE_ID" => "",	// CпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ DOCUMENT_ROOT пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
         ),
         false
       );
@@ -151,6 +158,8 @@ $this->setFrameMode(true);?>
       $sortOrder2 = $arParams["ELEMENT_SORT_ORDER"];
       ?>
       <?$intSectionID = 0;?>
+
+
         <?$intSectionID = $APPLICATION->IncludeComponent(
         "bitrix:catalog.section",
         $sectionTemplate,
@@ -240,8 +249,32 @@ $this->setFrameMode(true);?>
       );?>
     </div>
   </div>
+
+
+
+  <div id="compare_list_items_container" style="display: none">
+  <?
+  $str = CUtil::PhpToJSObject(array_keys($_SESSION["CATALOG_COMPARE_LIST"][4]["ITEMS"]));
+  Trace($str);
+  $frame = new \Bitrix\Main\Page\FrameBuffered("compare_list_items_container", false);
+  $frame->begin('');
+  ?>
+  <input id="compare_list_items" type="hidden" value="<?=$str?>">
+  <?$frame->end();?>
+  </div>
+
+
+
   <div id="sidebar">
-    <?$APPLICATION->ShowViewContent("sm-filter");?>
+    <?
+    $frame = new \Bitrix\Main\Page\FrameStatic("filter-dynamic");
+    $frame->setAnimation(true);
+    $frame->setStub("");
+    $frame->setContainerId("sidebar");
+    $frame->startDynamicArea();
+    $APPLICATION->ShowViewContent("sm-filter");
+    $frame->finishDynamicArea();
+    ?>
   </div>
 </div>
 <?if($arParams["USE_COMPARE"]=="Y"):?>

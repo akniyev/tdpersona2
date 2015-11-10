@@ -1,11 +1,10 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Галерея");
-?>
-	<div class="wrapper">
+?><div class="wrapper">
 	<div class="container" style="width:100%;">
 		<div class="container-hold">
 			<h1 style="padding:29px 0px 29px 36px;margin-bottom: 0px;"> <? $APPLICATION->ShowTitle(); ?> </h1>
-<?$APPLICATION->IncludeComponent(
+			 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"gallery",
 	Array(
@@ -32,8 +31,8 @@ $APPLICATION->SetTitle("Галерея");
 		"FIELD_CODE" => array("",""),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"IBLOCK_ID" => "14",
-		"IBLOCK_TYPE" => "news",
+		"IBLOCK_ID" => "15",
+		"IBLOCK_TYPE" => "gallery",
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"MEDIA_PROPERTY" => "",
@@ -71,4 +70,4 @@ $APPLICATION->SetTitle("Галерея");
 		</div>
 	</div>
 </div>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

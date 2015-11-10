@@ -9,17 +9,21 @@ if (window.frameCacheVars !== undefined)
     $(init);
 }
 
-
+	
 function tickOffCompareCheckboxes()
 {
-  return;
-  debugger;
-  var compare_list = $.parseJSON($("input#compare_list_items").val()
-                        .replace(/'/g,"\"")); // json parser doesn't understand symbol '
-  compare_list.forEach(function(id){
-    $("input[type=checkbox][wf-elem-id="+id+"]").prop("checked","checked");
-  });
+  var idsStr = $("input#compare_list_items").val();
+  if (idsStr)
+  {
+    var compare_list = $.parseJSON(idsStr.replace(/'/g,"\"")); // json parser doesn't understand symbol '
+    for (var i=0; i < compare_list.length; i++)
+    {
+      $("input[type=checkbox][wf-elem-id="+compare_list[i]+"]").prop("checked","checked");
+    }
+  }
 }
+
+
 
 function init() {
   tickOffCompareCheckboxes();
@@ -29,9 +33,12 @@ function init() {
   $('.styledLabel').on('click', function(e){
     checkboxStyling('.styledRadio', '.styledLabel');
   });
-  checkbox_change_events($);
-  addToBacketEvent($);
-  addToBacketAnimationEvent($);
+  if ($("input#compare_list_items").length)
+  {
+    checkbox_change_events($);
+    addToBacketEvent($);
+    addToBacketAnimationEvent($);
+  }
 }
 
 
