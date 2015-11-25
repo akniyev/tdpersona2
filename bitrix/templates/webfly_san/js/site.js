@@ -25,7 +25,8 @@ $(function () {
     $('.input-block .popup-input').removeAttr('style');
     e.preventDefault();
   });
-  $('.input-block').on('click', '.link-input', function () {
+
+  function link_input_open () {
     console.log("open");
     popupbg();
     $('.place').removeClass('active');
@@ -33,7 +34,13 @@ $(function () {
     $('body > .bg').fadeIn(300);
     $('.input-block').addClass('active');
     return false;
-  });
+  }
+
+  if ($(".errortext").length > 0) {
+    link_input_open();
+  }
+
+  $('.input-block').on('click', '.link-input', link_input_open);
   $('.input-block .popup-enter .row-link .align-left').click(function () {
     $('.input-block .popup-enter').hide();
     $('.input-block .popup-registration').show();

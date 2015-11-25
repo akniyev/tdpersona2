@@ -14,7 +14,46 @@
 
 $this->setFrameMode(true);
 
+$uf_iblock_id = $arResult["IBLOCK_ID"]; //ID инфоблока
+$uf_section_id = $arResult["IBLOCK_SECTION_ID"];
+$uf_name = Array("UF_DESCR_TEMPLATE");
 
+$DESCRIPTION = "";
+
+if(CModule::IncludeModule("iblock")): //подключаем модуль инфоблок для работы с классом CIBlockSection
+	$uf_arresult = CIBlockSection::GetList(Array("SORT"=>"­­ASC"), Array("IBLOCK_ID" => $uf_iblock_id, "ID" => $uf_section_id), false, $uf_name);
+	if($uf_value = $uf_arresult->GetNext()):
+		if(strlen($uf_value["UF_DESCR_TEMPLATE"]) > 0): //проверяем что поле заполнено
+//			test_dump($uf_value["UF_DESCR_TEMPLATE"]);
+			$DESCRIPTION = $uf_value["UF_DESCR_TEMPLATE"];
+
+			$string_to_find = "/#[A-Z_]+#/";
+
+			$matches = Array();
+			preg_match_all($string_to_find, $DESCRIPTION, $matches);
+
+			if (count($matches > 0)):
+				$matches = $matches[0];
+
+				for ($i = 0; $i < count($matches); $i++) {
+					$match = trim($matches[$i], "#");
+//					test_dump($match);
+//					test_dump($arResult["PROPERTIES"][$match]["VALUE"]);
+
+					$replace = $arResult["PROPERTIES"][$match]["VALUE"];
+
+					$DESCRIPTION = str_replace($matches[$i], $replace, $DESCRIPTION);
+				}
+
+				//test_dump($matches);
+				$arResult["DETAIL_TEXT"] = $DESCRIPTION;
+			endif;
+
+		endif;
+	endif;
+endif;
+
+//test_dump($arResult);
 
 $strMainID = $this->GetEditAreaId($arResult['ID']);
 $isOffers = !empty($arResult["OFFERS"]);
