@@ -89,7 +89,8 @@ html{
 body{
 	position:relative;
 	background:#fff;
-	background:url(../img/body-bg.jpg) center 180px no-repeat;
+	background: url(/bitrix/templates/webfly_san/css/../img/body-bg.jpg) no-repeat;
+	background-size: 100%;
 	min-width: 1170px;
 	height:100%;
 	margin:0;
@@ -2782,8 +2783,8 @@ h5{
 }
 .soc-block{
 	float:right;
-	width: 144px;
-	padding: 0 2px 0 23px;
+	/*width: 144px;
+	padding: 0 2px 0 23px;*/
 }
 .soc-block ul:after{
 	display:block;
